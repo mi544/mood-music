@@ -58,9 +58,6 @@ function youtubeSearch(searchQ) {
 }
 
 
-// Genius API
-var regex = new RegExp(`<div class="lyrics">(.|\n)*<!--sse-->(.|\n)*<!--/sse-->`);
-
 function geniusLyricsParser() {
     $.ajax({
             url: "https://cors-anywhere.herokuapp.com/https://genius.com/Slopps-my-crib-lyrics",
@@ -84,6 +81,72 @@ function geniusLyricsParser() {
 
 
         });
+}
+
+
+
+
+// Genius API
+
+// Parsing lyrics
+var regex = new RegExp(`<div class="lyrics">(.|\n)*<!--sse-->(.|\n)*<!--/sse-->`);
+var songNameForGenius = prompt("song name please", "my crib by slopps");
+var songURL;
+
+function geniusLyricsParser(songURL) {
+    $.ajax({
+            url: "https://api.genius.com/search",
+            type: "GET",
+            data: {
+                q: songNameForGenius,
+                access_token: "39mbxzJoZqsELd5bHonlLHTdSRSj3vqWGn3pJ8mYRSad_y4K8maYbOKqgle3YeWA"
+            }
+        })
+
+
+        .then(function (response) {
+            console.log("GeniusAPI: ", "Searching for: ", songNameForGenius);
+            console.log("GeniusAPI: ", response.response.hits.length, " results found.");
+
+            console.log("GeniusAPI: ", "[0] Full title: ", response.response.hits[0].result.full_title);
+            console.log("GeniusAPI: ", "[0] URL: ", response.response.hits[0].result.url);
+
+            // TODO rename vars
+            songURL = response.response.hits[0].result.url;
+            console.log("this is songURL", songURL);
+        })
+
+
+        .then(
+            function () {
+                $.ajax({
+                        // TODO
+                        url: `https://cors-anywhere.herokuapp.com/${songURL}`,
+                        type: "GET",
+                        dataType: "html"
+                    })
+
+                    .then(function (response) {
+                        var lyrics = response.match(regex)[0].slice(55, response.match(regex)[0].length - 11).trim();
+                        for (var i = 0; lyrics.search("<br>") !== -1; i++) {
+                            lyrics = lyrics.replace("<br>", "");
+                        }
+                        for (var i = 0; lyrics.search("<p>") !== -1; i++) {
+                            lyrics = lyrics.replace("<p>", "");
+                        }
+                        for (var i = 0; lyrics.search("</p>") !== -1; i++) {
+                            lyrics = lyrics.replace("</p>", "");
+                        }
+
+                        console.log(lyrics);
+                        document.write(lyrics);
+                    })
+
+
+
+
+            }
+        );
 }
 
 geniusLyricsParser();
