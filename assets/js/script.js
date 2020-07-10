@@ -90,7 +90,7 @@ function geniusLyricsParser() {
 
 // Parsing lyrics
 var regex = new RegExp(`<div class="lyrics">(.|\n)*<!--sse-->(.|\n)*<!--/sse-->`);
-var songNameForGenius = "my crib by slopps";
+var songNameForGenius = prompt("song name please", "my crib by slopps");
 var songURL;
 
 function geniusLyricsParser(songURL) {
