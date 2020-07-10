@@ -69,17 +69,42 @@ function geniusLyricsParser() {
         })
 
         .then(function (response) {
-            var lyrics = response.match(regex)[0].slice(55, response.match(regex)[0].length - 11).trim();
-            for (var i = 0; lyrics.search("<br>") !== -1; i++) {
-                lyrics = lyrics.replace("<br>", "");
-            }
-            for (var i = 0; lyrics.search("<p>") !== -1; i++) {
-                lyrics = lyrics.replace("<p>", "");
-            }
-            for (var i = 0; lyrics.search("</p>") !== -1; i++) {
-                lyrics = lyrics.replace("</p>", "");
-            }
-            console.log(lyrics);
+            // console.log(response.split("\n").indexOf('<div class="lyrics">'));
+
+
+            var indexStore = -5;
+            var check = false;
+
+            responseM = response.split("\n").map(function (row, i, arr) {
+                row = row.trim();
+                if (row === '<div class="lyrics">') {
+                    indexStore = i;
+
+                }
+                if (i >= indexStore + 3 && check === false) {
+                    if (row === "<!--/sse-->") {
+                        check = true;
+                    } else {
+                        return row;
+                    }
+                }
+            });
+
+            // console.log(indexStore);
+
+            console.log(responseM);
+
+            // var lyrics = response.match(regex)[0].slice(55, response.match(regex)[0].length - 11).trim();
+            // for (var i = 0; lyrics.search("<br>") !== -1; i++) {
+            //     lyrics = lyrics.replace("<br>", "");
+            // }
+            // for (var i = 0; lyrics.search("<p>") !== -1; i++) {
+            //     lyrics = lyrics.replace("<p>", "");
+            // }
+            // for (var i = 0; lyrics.search("</p>") !== -1; i++) {
+            //     lyrics = lyrics.replace("</p>", "");
+            // }
+            // console.log(lyrics);
 
 
 
