@@ -1,5 +1,5 @@
 // Function that gets us our track mbid
-function getTrackInfo() {
+function lastFMGetTrackInfo() {
     var artist = "the xx";
     var song = "crystalize";
     var queryURL = `http://ws.audioscrobbler.com/2.0/?method=track.getInfo&api_key=0288ec49437b4cf920a1f4c62e1f1f2a&artist=${artist}&track=${song}&format=json`
@@ -11,7 +11,7 @@ function getTrackInfo() {
     })
 }
 // function that get our similar song list
-function getSimilarSong(response) {
+function lastFMGetSimilarSongs(response) {
 
 
     $.ajax({
@@ -35,21 +35,13 @@ function getSimilarSong(response) {
 }
 
 
-
-
-
-// youtube API
 function youtubeSearch(searchQ) {
     $.ajax({
             type: 'GET',
-            url: 'https://www.googleapis.com/youtube/v3/search',
+            url: 'http://youtube-scrape.herokuapp.com/api/search',
             data: {
-                key: 'AIzaSyDcZydHg3A14jzQpXUnM7HElOVHptJIpU0',
                 q: searchQ,
-                part: 'snippet',
-                maxResults: 5,
-                type: 'video',
-                videoEmbeddable: true,
+                page: '1'
             }
         })
         .then(function (response) {
@@ -57,8 +49,7 @@ function youtubeSearch(searchQ) {
         });
 }
 
-
-function geniusLyricsParser() {
+function geniusGetLyrics() {
     $.ajax({
             url: "https://cors-anywhere.herokuapp.com/https://genius.com/Slopps-my-crib-lyrics",
             type: "GET",
@@ -90,10 +81,12 @@ function geniusLyricsParser() {
 
 // Parsing lyrics
 var regex = new RegExp(`<div class="lyrics">(.|\n)*<!--sse-->(.|\n)*<!--/sse-->`);
-var songNameForGenius = prompt("song name please", "my crib by slopps");
 var songURL;
 
+// var songNameForGenius = "my crib by slopps";
 function geniusLyricsParser(songURL) {
+    // TODO
+    var check = false;
     $.ajax({
             url: "https://api.genius.com/search",
             type: "GET",
@@ -127,19 +120,42 @@ function geniusLyricsParser(songURL) {
                     })
 
                     .then(function (response) {
-                        var lyrics = response.match(regex)[0].slice(55, response.match(regex)[0].length - 11).trim();
-                        for (var i = 0; lyrics.search("<br>") !== -1; i++) {
-                            lyrics = lyrics.replace("<br>", "");
-                        }
-                        for (var i = 0; lyrics.search("<p>") !== -1; i++) {
-                            lyrics = lyrics.replace("<p>", "");
-                        }
-                        for (var i = 0; lyrics.search("</p>") !== -1; i++) {
-                            lyrics = lyrics.replace("</p>", "");
-                        }
+                        var responseM = response.split("\n").map(function (row, j, arr) {
+                            if (check === false) {
+                                if (row.trim() === '<div class="lyrics">') {
+                                    check = true;
+                                    console.log(row);
+                                    return row;
 
-                        console.log(lyrics);
-                        document.write(lyrics);
+                                }
+                            } else if (check === true) {
+                                if (row.trim() === "<!--/sse-->") {
+                                    check = false;
+                                } else {
+                                    return row
+                                };
+                            }
+
+
+                        });
+
+
+
+                        console.log(responseM);
+
+                        // var lyrics = response.match(regex)[0].slice(55, response.match(regex)[0].length - 11).trim();
+                        // for (var i = 0; lyrics.search("<br>") !== -1; i++) {
+                        //     lyrics = lyrics.replace("<br>", "");
+                        // }
+                        // for (var i = 0; lyrics.search("<p>") !== -1; i++) {
+                        //     lyrics = lyrics.replace("<p>", "");
+                        // }
+                        // for (var i = 0; lyrics.search("</p>") !== -1; i++) {
+                        //     lyrics = lyrics.replace("</p>", "");
+                        // }
+
+                        // console.log(lyrics);
+                        // document.write(lyrics);
                     })
 
 
@@ -149,4 +165,4 @@ function geniusLyricsParser(songURL) {
         );
 }
 
-geniusLyricsParser();
+// geniusLyricsParser();
