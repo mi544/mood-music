@@ -78,91 +78,88 @@ function geniusGetLyrics() {
 
 
 // Genius API
+// Using regular expressions (regex) to extract lyrics from html code
+var regex = new RegExp('<div class="lyrics">(.|\n)*<!--sse-->(.|\n)*<!--/sse-->');
+// TODO this is used in the following function to pass as search query to genius
 
-// Parsing lyrics
-var regex = new RegExp(`<div class="lyrics">(.|\n)*<!--sse-->(.|\n)*<!--/sse-->`);
-var songURL;
+// TODO describe&organize the function
 
-// var songNameForGenius = "my crib by slopps";
-function geniusLyricsParser(songURL) {
-    // TODO
-    var check = false;
-    $.ajax({
-            url: "https://api.genius.com/search",
-            type: "GET",
-            data: {
-                q: songNameForGenius,
-                access_token: "39mbxzJoZqsELd5bHonlLHTdSRSj3vqWGn3pJ8mYRSad_y4K8maYbOKqgle3YeWA"
-            }
-        })
+// TODO jsdoc
+const geniusGetSongURLbyName = async (songNameForGenius = "my crib by slopps") => {
 
+    // requesting search results from genius.com
+    var geniusSearchResponse = await $.ajax({
+        url: "https://api.genius.com/search",
+        type: "GET",
+        data: {
+            q: songNameForGenius,
+            access_token: "39mbxzJoZqsELd5bHonlLHTdSRSj3vqWGn3pJ8mYRSad_y4K8maYbOKqgle3YeWA"
+        }
+    })
 
-        .then(function (response) {
-            console.log("GeniusAPI: ", "Searching for: ", songNameForGenius);
-            console.log("GeniusAPI: ", response.response.hits.length, " results found.");
+    // TODO DEPLOY remove verbose logging (optionally)
+    console.log("GeniusAPI: ", "Searching for: ", songNameForGenius);
+    console.log("GeniusAPI: ", geniusSearchResponse.response.hits.length, " results found.");
+    // TODO TALK always return first only?
+    console.log("Only returning the first result.");
 
-            console.log("GeniusAPI: ", "[0] Full title: ", response.response.hits[0].result.full_title);
-            console.log("GeniusAPI: ", "[0] URL: ", response.response.hits[0].result.url);
+    console.log("GeniusAPI: ", "[0] Full title: ", geniusSearchResponse.response.hits[0].result.full_title);
+    console.log("GeniusAPI: ", "[0] Song URL: ", geniusSearchResponse.response.hits[0].result.url);
 
-            // TODO rename vars
-            songURL = response.response.hits[0].result.url;
-            console.log("this is songURL", songURL);
-        })
+    // TODO rename vars
+    songURL = geniusSearchResponse.response.hits[0].result.url;
 
-
-        .then(
-            function () {
-                $.ajax({
-                        // TODO
-                        url: `https://cors-anywhere.herokuapp.com/${songURL}`,
-                        type: "GET",
-                        dataType: "html"
-                    })
-
-                    .then(function (response) {
-                        var responseM = response.split("\n").map(function (row, j, arr) {
-                            if (check === false) {
-                                if (row.trim() === '<div class="lyrics">') {
-                                    check = true;
-                                    console.log(row);
-                                    return row;
-
-                                }
-                            } else if (check === true) {
-                                if (row.trim() === "<!--/sse-->") {
-                                    check = false;
-                                } else {
-                                    return row
-                                };
-                            }
-
-
-                        });
-
-
-
-                        console.log(responseM);
-
-                        // var lyrics = response.match(regex)[0].slice(55, response.match(regex)[0].length - 11).trim();
-                        // for (var i = 0; lyrics.search("<br>") !== -1; i++) {
-                        //     lyrics = lyrics.replace("<br>", "");
-                        // }
-                        // for (var i = 0; lyrics.search("<p>") !== -1; i++) {
-                        //     lyrics = lyrics.replace("<p>", "");
-                        // }
-                        // for (var i = 0; lyrics.search("</p>") !== -1; i++) {
-                        //     lyrics = lyrics.replace("</p>", "");
-                        // }
-
-                        // console.log(lyrics);
-                        // document.write(lyrics);
-                    })
-
-
-
-
-            }
-        );
+    return songURL;
 }
 
-// geniusLyricsParser();
+
+
+// TODO jsdoc
+const geniusGetLyricsBySongURL = async (songURL) => {
+
+    var regexTags = new RegExp("<p>|<br>|</p>");
+
+    // logic based variables
+    var pushOrNotCheck = false;
+    var aTagCheck = false;
+    var j1, j2;
+
+    // requesting the html page of the songURL
+    // assigning the response of the call to geniusSearchResponse
+    var songHTML = await $.ajax({
+        url: `https://cors-anywhere.herokuapp.com/${songURL}`,
+        type: "GET",
+        dataType: "html"
+    })
+
+    songHTML = songHTML.split("\n");
+
+    var songLyrics = [];
+
+    for (item of songHTML) {
+        item = item.trim();
+        if (pushOrNotCheck === false) {
+            if (item === '<div class="lyrics">') {
+                pushOrNotCheck = true;
+            }
+        } else if (pushOrNotCheck === true) {
+            if (item === "<!--/sse-->") {
+                break;
+            } else {
+                // checking for unwanted strings
+                // "<p>", "<br>", "</p>", "a tags (!todo)"
+                // TODO a tags
+                if (item.search(regexTags) !== -1) {
+                    item = item.replace(regexTags, "");
+                    if (item) {
+                        songLyrics.push(item);
+                    }
+                }
+            };
+        }
+    }
+
+    return songLyrics;
+}
+
+(async () => console.log(await geniusGetLyricsBySongURL(await geniusGetSongURLbyName())))();
