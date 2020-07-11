@@ -49,44 +49,13 @@ function youtubeSearch(searchQ) {
         });
 }
 
-function geniusGetLyrics() {
-    $.ajax({
-            url: "https://cors-anywhere.herokuapp.com/https://genius.com/Slopps-my-crib-lyrics",
-            type: "GET",
-            dataType: "html"
-        })
-
-        .then(function (response) {
-            var lyrics = response.match(regex)[0].slice(55, response.match(regex)[0].length - 11).trim();
-            for (var i = 0; lyrics.search("<br>") !== -1; i++) {
-                lyrics = lyrics.replace("<br>", "");
-            }
-            for (var i = 0; lyrics.search("<p>") !== -1; i++) {
-                lyrics = lyrics.replace("<p>", "");
-            }
-            for (var i = 0; lyrics.search("</p>") !== -1; i++) {
-                lyrics = lyrics.replace("</p>", "");
-            }
-            console.log(lyrics);
-
-
-
-        });
-}
-
-
 
 
 // Genius API
-// Using regular expressions (regex) to extract lyrics from html code
-var regex = new RegExp('<div class="lyrics">(.|\n)*<!--sse-->(.|\n)*<!--/sse-->');
-// TODO this is used in the following function to pass as search query to genius
 
-// TODO describe&organize the function
-
-// TODO jsdoc
+// Searches for songs through geniusAPI
+// Returns a URL of the first result
 const geniusGetSongURLbyName = async (songNameForGenius = "my crib by slopps") => {
-
     // requesting search results from genius.com
     var geniusSearchResponse = await $.ajax({
         url: "https://api.genius.com/search",
@@ -114,7 +83,10 @@ const geniusGetSongURLbyName = async (songNameForGenius = "my crib by slopps") =
 
 
 
-// TODO jsdoc
+// Requests an html page for any given URL
+// (made to work only with genius songs webpages)
+// Returns song lyrics as an array
+// where one item of the array equals one line of lyrics
 const geniusGetLyricsBySongURL = async (songURL) => {
 
     var regexTags = new RegExp("<p>|<br>|</p>");
