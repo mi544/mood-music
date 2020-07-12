@@ -95,13 +95,7 @@ const geniusGetSongURLbyName = async (songNameForGenius = "my crib by slopps") =
 // Returns song lyrics as an array
 // where one item of the array equals one line of lyrics
 const geniusGetLyricsBySongURL = async (songURL) => {
-
-    var regexTags = new RegExp("<p>|<br>|</p>");
-
-    // logic based variables
-    var pushOrNotCheck = false;
-    var aTagCheck = false;
-    var j1, j2;
+    var regexATagsOpeningFull = new RegExp("<a[\\s\\S]*?>|</a>|<p>|</p>|<!--/", "g");
 
     // requesting the html page of the songURL
     // assigning the response of the call to geniusSearchResponse
@@ -111,38 +105,28 @@ const geniusGetLyricsBySongURL = async (songURL) => {
         dataType: "html"
     })
 
-    songHTML = songHTML.split("\n");
+    songHTML = songHTML.split("sse-->");
 
-    var songLyrics = [];
+    var songLyricsArr = songHTML[3].replace(regexATagsOpeningFull, "").trim().split("<br>");
 
-    for (item of songHTML) {
-        item = item.trim();
-        if (pushOrNotCheck === false) {
-            if (item === '<div class="lyrics">') {
-                pushOrNotCheck = true;
-            }
-        } else if (pushOrNotCheck === true) {
-            if (item === "<!--/sse-->") {
-                break;
-            } else {
-                // checking for unwanted strings
-                // "<p>", "<br>", "</p>", "a tags (!todo)"
-                // TODO a tags
-                if (item.search(regexTags) !== -1) {
-                    item = item.replace(regexTags, "");
-                    if (item) {
-                        songLyrics.push(item);
-                    }
-                }
-            };
-        }
-    }
+    console.log(songLyricsArr);
 
-    return songLyrics;
+    return songLyricsArr;
 }
 
-(async () => console.log(await geniusGetLyricsBySongURL(await geniusGetSongURLbyName())))();
 
+
+// TODO jsdoc
+const generateLyrics = (lyricsArray) => {
+
+    var lyricsSection = $("#lyrics-section");
+    lyricsSection.empty();
+
+    for (item of lyricsArray) {
+        lyricsSection.append($("<span>").attr("class", "lyrics-line").text(item));
+    }
+
+}
 
 // function for calling lastFM data
 (async function () {
@@ -150,3 +134,11 @@ const geniusGetLyricsBySongURL = async (songURL) => {
     var result = await lastFMGetTrackInfo("animals as leaders", "CAFO")
     lastFMGetSimilarTracks(result)
 })()
+
+
+(async () => {
+    var songURL = await geniusGetSongURLbyName("baby got back");
+    // var songURL = await geniusGetSongURLbyName();
+    var lyricsArray = await geniusGetLyricsBySongURL(songURL);
+    generateLyrics(lyricsArray);
+})();
