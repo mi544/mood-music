@@ -1,8 +1,19 @@
-/* TODO add font import from Google Fonts */
+@import url('https://fonts.googleapis.com/css2?family=Baloo+2&display=swap');
 
 body {
     /* TODO use the font here */
+    font: 1.2rem "Baloo 2", sans-serif;
 }
+
+/* .my-class {
+    background-image: url("../img/bg2.png");
+    background-size: 20rem;
+} */
+
+/* .title {
+    background-color: gray;
+    display: inline-block;
+} */
 
 #lyricsSection {
     /* TODO adjust height (also media queries for mobile) */
@@ -54,4 +65,17 @@ Displays whatever song was entered by the user */
     left: 0;
     width: 100%;
     height: 100%;
+}
+
+
+#welcomeSection {}
+
+.welcomeP {}
+
+
+
+/* Bulma Custom Styling */
+.container.is-fluid {
+    padding-left: 0;
+    padding-right: 0;
 }

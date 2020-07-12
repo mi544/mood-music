@@ -163,7 +163,9 @@ const generateAllSongElements = async () => {
     var artistUserInput = $("#artistName");
     var songUserInput = $("#songName");
     var artistUser = artistUserInput.val().trim();
+    artistUserInput.val("");
     var songUser = songUserInput.val().trim();
+    songUserInput.val("");
     var youTubeIframeSection = $("#iframe-container");
 
     // async lastFM request for song information
@@ -172,14 +174,14 @@ const generateAllSongElements = async () => {
     // async lastFM request for similar songs
     var lastFMSimilarSongsArray = await lastFMGetSimilarTracks(songInfo);
     // async YouTube-Scraper request for search results from YouTube
-    var youTubeId = await youTubeSearch(songInfo.track.artist.name + " " + songInfo.track.name);
+    var youTubeId = await youTubeSearch(songInfo.track.name + " " + songInfo.track.artist.name);
     // async Genius request for song URL
-    var geniusSongURL = await geniusGetSongURLbyName(songInfo.track.artist.name + " " + songInfo.track.name);
+    var geniusSongURL = await geniusGetSongURLbyName(songInfo.track.name + " " + songInfo.track.artist.name);
     // async Genius request for lyrics of that song
     var geniusLyricsArray = await geniusGetLyricsBySongURL(geniusSongURL);
 
     // Generating lastFM similar songs on the page
-    generateSimilarSongs(lastFMSimilarSongsArray, songInfo.track.artist.name + " by " + songInfo.track.name);
+    generateSimilarSongs(lastFMSimilarSongsArray, songInfo.track.name + " by " + songInfo.track.artist.name);
 
     // Generating Genius lyrics on the page
     generateLyrics(geniusLyricsArray);
