@@ -128,17 +128,21 @@ const generateLyrics = (lyricsArray) => {
 
 }
 
-// function for calling lastFM data
-(async function () {
-    // lastFMGetTrackInfo("plini", "electric sunrise")
-    var result = await lastFMGetTrackInfo("animals as leaders", "CAFO")
-    lastFMGetSimilarTracks(result)
-})()
+// // function for calling lastFM data
+// (async function () {
+
+// })()
 
 
 (async () => {
+    // lastFM calls
+    // lastFMGetTrackInfo("plini", "electric sunrise")
+    var result = await lastFMGetTrackInfo("animals as leaders", "CAFO")
+    lastFMGetSimilarTracks(result)
+
+    // genius calls
     var songURL = await geniusGetSongURLbyName("baby got back");
     // var songURL = await geniusGetSongURLbyName();
     var lyricsArray = await geniusGetLyricsBySongURL(songURL);
-    generateLyrics(lyricsArray);
+    // generateLyrics(lyricsArray);
 })();
