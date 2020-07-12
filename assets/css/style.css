@@ -1,18 +1,30 @@
-/* TODO add font import from Google Fonts */
+@import url('https://fonts.googleapis.com/css2?family=Baloo+2&display=swap');
 
 body {
     /* TODO use the font here */
+    font: 1.2rem "Baloo 2", sans-serif;
 }
+
+/* .my-class {
+    background-image: url("../img/bg2.png");
+    background-size: 20rem;
+} */
+
+/* .title {
+    background-color: gray;
+    display: inline-block;
+} */
 
 #lyricsSection {
     /* TODO adjust height (also media queries for mobile) */
-    height: 20rem;
-    max-width: 17rem;
+    /* TODO increase the width */
+    height: 35rem;
+    /* max-width: 17rem; */
     overflow-y: auto;
     overflow-x: hidden;
 }
 
-#songsListSection {
+#songListSection {
     /* TODO adjust height (also media queries for mobile) */
     height: 20rem;
     overflow-y: auto;
@@ -37,5 +49,33 @@ Displays whatever song was entered by the user */
 
 /* Search button */
 #searchButton {
+    /* height: 100%; */
+}
+
+/* YouTube Video Embedded */
+#iframe-container {
+    position: relative;
+    width: 100%;
+    height: 0;
+}
+
+#iframe-container iframe {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
     height: 100%;
+}
+
+
+#welcomeSection {}
+
+.welcomeP {}
+
+
+
+/* Bulma Custom Styling */
+.container.is-fluid {
+    padding-left: 0;
+    padding-right: 0;
 }
