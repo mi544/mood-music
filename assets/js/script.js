@@ -134,15 +134,22 @@ const generateLyrics = (lyricsArray) => {
 // })()
 
 
-(async () => {
+
+
+
+
+$("#searchButton").on("click", (async () => {
+    var artistUserInput = $("#artistName");
+    var songUserInput = $("#songName");
+    var artistUser = artistUserInput.val().trim();
+    var songUser = songUserInput.val().trim();
+
     // lastFM calls
-    // lastFMGetTrackInfo("plini", "electric sunrise")
-    var result = await lastFMGetTrackInfo("animals as leaders", "CAFO")
-    lastFMGetSimilarTracks(result)
+    var songInfo = await lastFMGetTrackInfo(artistUser, songUser);
+    lastFMGetSimilarTracks(songInfo);
 
     // genius calls
-    var songURL = await geniusGetSongURLbyName("baby got back");
-    // var songURL = await geniusGetSongURLbyName();
+    var songURL = await geniusGetSongURLbyName(artistUser, songUser);
     var lyricsArray = await geniusGetLyricsBySongURL(songURL);
     // generateLyrics(lyricsArray);
-})();
+}));
