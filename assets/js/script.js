@@ -78,7 +78,7 @@ const geniusGetSongURLbyName = async (songNameForGenius = "my crib by slopps") =
     console.log("GeniusAPI: ", geniusSearchResponse.response.hits.length, " results found.");
     // TODO TALK always return first only?
     console.log("Only returning the first result.");
-
+    console.log(geniusSearchResponse.response)
     console.log("GeniusAPI: ", "[0] Full title: ", geniusSearchResponse.response.hits[0].result.full_title);
     console.log("GeniusAPI: ", "[0] Song URL: ", geniusSearchResponse.response.hits[0].result.url);
 
@@ -149,7 +149,7 @@ $("#searchButton").on("click", (async () => {
     lastFMGetSimilarTracks(songInfo);
 
     // genius calls
-    var songURL = await geniusGetSongURLbyName(artistUser, songUser);
+    var songURL = await geniusGetSongURLbyName(artistUser + " " + songUser);
     var lyricsArray = await geniusGetLyricsBySongURL(songURL);
     // generateLyrics(lyricsArray);
 }));
