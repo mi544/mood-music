@@ -4,8 +4,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link href="https://cdn.jsdelivr.net/npm/bulma@0.9.0/css/bulma.min.css" rel="stylesheet">
-    <link href="assets/css/style.css">
+    <link href="https://cdn.jsdelivr.net/npm/bulma@0.9.0/css/bulma.min.css" rel="stylesheet" />
+    <link rel="stylesheet" href="assets/css/style.css" />
     <title>Document</title>
     <style>
         .center {
@@ -35,7 +35,9 @@
         </nav>
         <!-- Header Need to add background image -->
         <section class="hero is-primary is-medium">
-            <div class="hero-body">
+            <!-- TODO fix the height (it's too big taking up too much space -->
+            <div class="">
+                <!-- TODO TALK ^^^ deleted "hero-body" class -->
                 <div class="container">
                     <h1 class="title">
                         Mood Music
@@ -86,11 +88,23 @@
                 <article class="tile is-child box ">
                     <p class="title">Songs</p>
                     <p class="subtitle">Subtitle</p>
-                    <div class="content">
-                        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Proin ornare magna eros, eu
-                            pellentesque
-                            tortor vestibulum ut.</p>
-                    </div>
+                    <ul class="content" id="songs-list-div">
+                        <!-- TODO TALK ^^^^ changed div to ul  -->
+                        <li class="song-item" id="user-entered-song">sdsds</li>
+                        <li class="song-item">sdsds</li>
+                        <li class="song-item">sdsds</li>
+                        <li class="song-item">sdsds</li>
+                        <li class="song-item">sdsds</li>
+                        <li class="song-item">sdsds</li>
+                        <li class="song-item">sdsds</li>
+                        <li class="song-item">sdsds</li>
+                        <li class="song-item">sdsds</li>
+                        <li class="song-item">sdsds</li>
+                        <li class="song-item">sdsds</li>
+                        <li class="song-item">sdsds</li>
+                        <li class="song-item">sdsds</li>
+                        <li class="song-item">sdsds</li>
+                    </ul>
                 </article>
             </div>
             <!-- Youtube box -->
@@ -112,10 +126,20 @@
                 <article class="tile is-child box ">
                     <p class="title">Lyrics</p>
                     <p class="subtitle">Subtitle</p>
-                    <div class="content">
-                        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Proin ornare magna eros, eu
-                            pellentesque
-                            tortor vestibulum ut.</p>
+                    <div class="content" id="lyrics-div">
+                        <span class="lyrics-line">Wont' you come over to my crib???</span>
+                        <span class="lyrics-line">We can do there what you likin'!</span>
+                        <span class="lyrics-line">Wont' you come over to my crib???</span>
+                        <span class="lyrics-line">We can do there what you likin'!</span>
+                        <span class="lyrics-line">Wont' you come over to my crib???</span>
+                        <span class="lyrics-line">We can do there what you likin'!</span>
+                        <span class="lyrics-line">Wont' you come over to my crib???</span>
+                        <span class="lyrics-line">We can do there what you likin'!</span>
+                        <span class="lyrics-line">Wont' you come over to my crib???</span>
+                        <span class="lyrics-line">We can do there what you likin'!</span>
+                        <span class="lyrics-line">Wont' you come over to my crib???</span>
+                        <span class="lyrics-line">We can do there what you likin'!</span>
+
                     </div>
 
                 </article>
