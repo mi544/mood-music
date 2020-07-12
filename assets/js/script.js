@@ -1,7 +1,7 @@
 // LastFM API
 const lastFMGetTrackInfo = async (artist, track) => {
     var lastFMSearchResponse = await $.ajax({
-        url: "http://ws.audioscrobbler.com/2.0/",
+        url: "https://ws.audioscrobbler.com/2.0/",
         method: "GET",
         data: {
             method: "track.getInfo",
@@ -19,7 +19,7 @@ const lastFMGetTrackInfo = async (artist, track) => {
 const lastFMGetSimilarTracks = async (lastFMRes) => {
 
     var lastFMSimilarTracks = await $.ajax({
-        url: "http://ws.audioscrobbler.com/2.0/",
+        url: "https://ws.audioscrobbler.com/2.0/",
         method: "GET",
         data: {
             method: "track.getsimilar",
