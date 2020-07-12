@@ -1,0 +1,36 @@
+/* TODO add font import from Google Fonts */
+
+body {
+    /* TODO use the font here */
+}
+
+#lyrics-section {
+    /* TODO adjust height (also media queries for mobile) */
+    height: 20rem;
+    max-width: 17rem;
+    overflow-y: auto;
+    overflow-x: hidden;
+}
+
+#songs-list-section {
+    /* TODO adjust height (also media queries for mobile) */
+    height: 20rem;
+    overflow-y: auto;
+}
+
+/* Each song in the song list */
+.song-item {
+    /* TODO add styling */
+    font-variant: small-caps;
+}
+
+/* Each line in the lyrics */
+.lyrics-line {
+    /* TODO add styling */
+    display: block;
+    font-variant: small-caps;
+}
+
+/* Always the first item in song list
+Displays whatever song was entered by the user */
+#user-entered-song {}
