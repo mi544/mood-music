@@ -1,38 +1,45 @@
 // Function that gets us our track mbid
-function lastFMGetTrackInfo() {
-    var artist = "the xx";
-    var song = "crystalize";
-    var queryURL = `http://ws.audioscrobbler.com/2.0/?method=track.getInfo&api_key=0288ec49437b4cf920a1f4c62e1f1f2a&artist=${artist}&track=${song}&format=json`
-    $.ajax({
-        url: queryURL,
-        method: "GET"
-    }).then(function (response) {
-        getSimilarSong(response)
+const lastFMGetTrackInfo = async (artist, track) => {
+    var lastFMSearchResponse = await $.ajax({
+        url: "http://ws.audioscrobbler.com/2.0/",
+        method: "GET",
+        data: {
+            method: "track.getInfo",
+            autocorrect: "1",
+            api_key: "0288ec49437b4cf920a1f4c62e1f1f2a",
+            artist: artist,
+            track: track,
+            format: "json",
+        }
     })
+    console.log(lastFMSearchResponse)
+    return lastFMSearchResponse;
 }
-// function that get our similar song list
-function lastFMGetSimilarSongs(response) {
 
 
-    $.ajax({
+
+const lastFMGetSimilarTracks = async (lastFMRes) => {
+
+    var lastFMSimilarTracks = await $.ajax({
         url: "http://ws.audioscrobbler.com/2.0/",
         method: "GET",
         data: {
             method: "track.getsimilar",
-            mbid: response.track.mbid,
+            artist: lastFMRes.track.artist.name,
+            track: lastFMRes.track.name,
             api_key: "0288ec49437b4cf920a1f4c62e1f1f2a",
             format: "json",
             limit: "10"
         }
-    }).then(function (data) {
-        for (var i = 0; i < data.similartracks.track.length; i++) {
-            console.log(data)
-            console.log(data.similartracks.track[i].name)
-            console.log(data.similartracks.track[i].artist.name)
-            console.log(data.similartracks.track[i].mbid)
-        }
     })
+    console.log(lastFMSimilarTracks)
+    var similarTracks = [];
+    for (var i = 0; i < lastFMSimilarTracks.similartracks.track.length; i++) {
+        similarTracks.push(lastFMSimilarTracks.similartracks.track[i].name + ' by ' + lastFMSimilarTracks.similartracks.track[i].artist.name)
+    }
+    console.log(similarTracks)
 }
+
 
 
 function youtubeSearch(searchQ) {
@@ -120,6 +127,13 @@ const generateLyrics = (lyricsArray) => {
     }
 
 }
+
+// function for calling lastFM data
+(async function () {
+    // lastFMGetTrackInfo("plini", "electric sunrise")
+    var result = await lastFMGetTrackInfo("animals as leaders", "CAFO")
+    lastFMGetSimilarTracks(result)
+})()
 
 
 (async () => {
