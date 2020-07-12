@@ -12,7 +12,7 @@ body {
     overflow-x: hidden;
 }
 
-#songs-list-section {
+#songsListSection {
     /* TODO adjust height (also media queries for mobile) */
     height: 20rem;
     overflow-y: auto;

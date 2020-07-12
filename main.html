@@ -18,114 +18,76 @@
 </head>
 
 <body>
-    <div class="container is-fluid">
-        <!-- Navbar need to add prestons logo -->
+    <!-- Navbar header  -->
+    <div class="container is-fluid px-2">
         <nav class="navbar is-link" role="navigation" aria-label="main navigation">
             <div class="navbar-brand">
                 <a class="navbar-item">
                     <img src="assets/img/logo.svg" alt="#" style="width:100px; height:100px">
                 </a>
-
-                <a role="button" class="navbar-burger" aria-label="menu" aria-expanded="false">
-                    <span aria-hidden="true"></span>
-                    <span aria-hidden="true"></span>
-                    <span aria-hidden="true"></span>
-                </a>
             </div>
         </nav>
-        <!-- Header Need to add background image -->
-        <section class="hero is-primary is-medium">
-            <!-- TODO fix the height (it's too big taking up too much space -->
-            <div class="hero-body">
-                <div class="container">
-                    <h1 class="title">
-                        Mood Music
-                    </h1>
-                    <h2 class="subtitle">
-
-                    </h2>
-                </div>
-            </div>
-        </section>
 
 
-        <!-- Youtube search bar -->
-        <div class="tile is-ancestor">
-            <div class="tile is-parent">
-                <article class="tile is-child box ">
-                    <div class="field has-addons">
-                        <div class="control">
-                            <input class="input" type="text" placeholder="search youtube">
+        <!-- main content  -->
+        <div class="tile is-ancestor mt-5">
+            <!-- Left grid  -->
+            <div class="tile is-parent is-fullhd">
+                <article class="tile is-child">
+                    <div class="is-divider" data-content="OR">
+                        <p class="title">Songs</p>
+                        <div class="field has-addons">
+                            <div class="control">
+                                <input class="input" type="text" placeholder="artist name" id="artistName">
+                                <input class="input" type="text" placeholder="song name" id="songName">
+                            </div>
+                            <div class="control">
+                                <a class="button is-info" style="height: 5rem">
+                                    Search
+                                </a>
+                            </div>
                         </div>
-                        <div class="control">
-                            <a class="button is-info">
-                                Search
-                            </a>
+                        <div class="content">
+                            <ul class="content" id="songsListSection">
+                                <!-- TODO TALK ^^^^ changed div to ul  -->
+                                <li class="song-item" id="user-entered-song">sdsds</li>
+                                <li class="song-item">sdsds</li>
+                                <li class="song-item">sdsds</li>
+                                <li class="song-item">sdsds</li>
+                                <li class="song-item">sdsds</li>
+                                <li class="song-item">sdsds</li>
+                                <li class="song-item">sdsds</li>
+                                <li class="song-item">sdsds</li>
+                                <li class="song-item">sdsds</li>
+                                <li class="song-item">sdsds</li>
+                                <li class="song-item">sdsds</li>
+                                <li class="song-item">sdsds</li>
+                                <li class="song-item">sdsds</li>
+                                <li class="song-item">sdsds</li>
+                            </ul>
                         </div>
-                    </div>
-                </article>
-
-            </div>
-            <!-- Whats playing bar -->
-            <div class="tile is-parent ">
-                <article class="tile is-child box ">
-                    <p class="title">Now Playing</p>
-                    <p class="subtitle"></p>
-                </article>
-            </div>
-            <div class="tile is-parent ">
-                <article class="tile is-child box ">
-
-                </article>
-            </div>
-        </div>
-
-
-
-        <div class="tile is-ancestor">
-            <div class="tile is-parent">
-                <article class="tile is-child box ">
-                    <p class="title">Songs</p>
-                    <p class="subtitle">Subtitle</p>
-                    <ul class="content" id="songs-list-section">
-                        <!-- TODO TALK ^^^^ changed div to ul  -->
-                        <li class="song-item" id="user-entered-song">sdsds</li>
-                        <li class="song-item">sdsds</li>
-                        <li class="song-item">sdsds</li>
-                        <li class="song-item">sdsds</li>
-                        <li class="song-item">sdsds</li>
-                        <li class="song-item">sdsds</li>
-                        <li class="song-item">sdsds</li>
-                        <li class="song-item">sdsds</li>
-                        <li class="song-item">sdsds</li>
-                        <li class="song-item">sdsds</li>
-                        <li class="song-item">sdsds</li>
-                        <li class="song-item">sdsds</li>
-                        <li class="song-item">sdsds</li>
-                        <li class="song-item">sdsds</li>
-                    </ul>
                 </article>
             </div>
             <!-- Youtube box -->
-            <div class="tile is-parent">
-                <article class="tile is-child notification box is-info ">
+            <div class="tile is-parent is-7">
+                <article class="tile is-child notification is-info ">
                     <p class="title">Youtube</p>
-                    <iframe width="530" height="360"
-                        src="https://www.youtube.com/embed?v=UyHk9yRQV7E&list=RD2bng91N0XV4&index=3"></iframe>
+                    <figure class="image is-4by3">
+                        <iframe class="has-ratio" width="640" height="360"
+                            src="https://www.youtube.com/embed?v=UyHk9yRQV7E&list=RD2bng91N0XV4&index=3" frameborder="0"
+                            allowfullscreen></iframe>
+                    </figure>
                     <div class="buttons">
                         <button class="button is-success">Previous</button>
                         <button class="button is-success">Next</button>
-
                     </div>
                 </article>
             </div>
-
             <!-- Song Container  -->
             <div class="tile is-parent">
-                <article class="tile is-child box ">
+                <article class="tile is-child">
                     <p class="title">Lyrics</p>
-                    <p class="subtitle">Subtitle</p>
-                    <div class="content" id="lyrics-section">
+                    <div class="content" id="lyricsSection">
                         <span class="lyrics-line">Wont' you come over to my crib???</span>
                         <span class="lyrics-line">We can do there what you likin'!</span>
                         <span class="lyrics-line">Wont' you come over to my crib???</span>
@@ -140,7 +102,6 @@
                         <span class="lyrics-line">We can do there what you likin'!</span>
 
                     </div>
-
                 </article>
             </div>
         </div>
