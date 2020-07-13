@@ -40,6 +40,8 @@ const lastFMGetTrackInfo = async (artist, track) => {
 }
 
 const lastFMGetSimilarTracks = async (lastFMSearchResponse) => {
+    // try catch block to catch an error if the array passed turns out empty
+    // (invalid song/artist name passed to the previous function - lastFMGetTrackInfo)
     try {
         var i = 0;
         var j = 0;
@@ -70,7 +72,6 @@ const lastFMGetSimilarTracks = async (lastFMSearchResponse) => {
 
                     // timeout 10 seconds and hide the tooltip (if not already closed by then)
                     setTimeout(() => similarNotFoundCuteTippyBox.hide(), 12000)
-
                     break;
                 }
             } else {

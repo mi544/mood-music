@@ -9,6 +9,16 @@ body {
     font-size: 1.2rem;
 }
 
+.border {
+    border: 2px groove lightgray;
+}
+
+.shadow {
+    box-shadow: 5px 5px lightgray;
+}
+
+
+
 #lyricsSection {
     /* TODO adjust height (also media queries for mobile) */
     /* TODO increase the width */
@@ -95,4 +105,8 @@ Displays whatever song was entered by the user */
 .container.is-fluid {
     padding-left: 0;
     padding-right: 0;
+}
+
+#youtube-parent {
+    box-shadow: 5px 10px lightgray;
 }
