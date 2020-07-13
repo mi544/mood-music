@@ -54,12 +54,17 @@ body {
       border: 1px solid;
     border-bottom: none;
     font-variant: small-caps;
+<<<<<<< HEAD
+=======
+
+>>>>>>> master
   
 }
 .song-item:hover{
     color:#3298DC;
     border: 1px solid black;
     border-bottom:none;
+<<<<<<< HEAD
    
 }
 .song-listened{
@@ -68,6 +73,10 @@ body {
 }
 .song-listened:hover{
     color:grey
+=======
+    cursor: pointer;
+
+>>>>>>> master
 }
 
 /* Each line in the lyrics */
