@@ -1,3 +1,6 @@
+var listenedTo = [];
+var selectedSong = [];
+
 // Misspelled song/artis name tippy box (cute one)
 const songNotFoundCuteTippyBox = tippy(document.querySelector("#artistSongInputFields"), {
     content: "Sorry, it looks like you misspelled the song or artist name.. Please, please try that again! (We'll try our best to find it!)",
@@ -20,6 +23,16 @@ const similarNotFoundCuteTippyBox = tippy(document.querySelector("#songListSecti
     delay: [500, 200],
 });
 
+
+const timerAsync = (miliseconds) => {
+    return new Promise((resolve, reject) => {
+        if (parseInt(miliseconds)) {
+            setTimeout(() => resolve(), miliseconds);
+        } else {
+            reject();
+        }
+    })
+}
 
 // LastFM API
 const lastFMGetTrackInfo = async (artist, track) => {
@@ -64,7 +77,8 @@ const lastFMGetSimilarTracks = async (lastFMSearchResponse) => {
                 console.log("--------------------ERROR--Similar-Tracks-----------------");
                 console.log("LastFM API: ", "Raw Response for similar tracks: ", lastFMSimilarTracks)
                 console.log("LastFM API: ", "Empty Similar Tracks returned\nRETRYING IN 2 SECONDS!");
-                setTimeout(console.log("LastFM API: ", "RETRYING NOW!"), 2000);
+                await timerAsync(2000);
+                console.log("LastFM API: ", "RETRYING NOW!");
                 j++;
                 if (j >= 2) {
                     // timeout for smoother experience
@@ -208,8 +222,8 @@ const generateSimilarSongs = (similarSongsArray, artistNameSongNameArr) => {
             artistNameSongName[0]));
     }
 
-
-
+    // adding bottom border to the last li element
+    $(songListSection.children()[songListSection.children().length - 1]).attr("style", "border-bottom: 1px solid black");
 }
 
 
@@ -236,6 +250,7 @@ const generateAllSongElements = async (artistNameSongNameArr = null) => {
         var now = Date.now()
         // async YouTube-Scraper request for search results from YouTube
         var youTubeId = await youTubeSearch(songInfo.track.name + " " + songInfo.track.artist.name);
+        var youTubeId = "gzOGocXy9Gw";
         // Generating YouTube embed on the page
         youTubeIframeSection.empty();
         youTubeIframeSection.append($("<iframe>").attr({
@@ -314,7 +329,13 @@ const generateAllSongElements = async (artistNameSongNameArr = null) => {
 // Search Button on click event
 $("#searchButton").on("click", () => {
     event.preventDefault();
+
+    var songName = $("#artistName").val();
+    var artistName = $("#songName").data();
+
     generateAllSongElements();
+
+    selectedSong = [artistName, songName];
 });
 
 // Song from the song list on click event
@@ -322,5 +343,15 @@ $("#songListSection").on("click", ".song-item", (event) => {
     var songName = $(event.target).data("song");
     var artistName = $(event.target).data("artist");
 
+    // if () {}
+
+
+    if (artistName === selectedSong[0] && songName === selectedSong[1]) {
+        return false;
+    }
+
     generateAllSongElements([artistName, songName]);
+
+    selectedSong = [artistName, songName];
+    listenedTo.push([artistName, songName]);
 })

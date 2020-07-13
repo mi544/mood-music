@@ -27,56 +27,44 @@ body {
     overflow-y: auto;
     overflow-x: hidden;
 }
-#enteredSong{
-    background-color:#3298DC ;
+
+#userEnteredSong {
     text-decoration: underline black;
 }
-#enteredSong:hover{
-    color:black;
+
+#userEnteredSong:hover {
+    color: black;
 }
+
 #songListSection {
     /* TODO adjust height (also media queries for mobile) */
-        cursor:pointer;
+    cursor: pointer;
     height: 20rem;
     overflow-y: auto;
     margin-left: 0;
     padding-left: 0.5rem;
     padding-right: 0.5rem;
 }
-.songSelection{
-    cursor:pointer;
+
+.songSelection {
+    cursor: pointer;
 }
 
 .song-item {
     /* TODO add styling */
     padding: 0.5rem;
-      margin-top: 0!important;
-      border: 1px solid;
+    margin-top: 0 !important;
+    border: 1px solid;
     border-bottom: none;
     font-variant: small-caps;
-<<<<<<< HEAD
-=======
 
->>>>>>> master
-  
 }
-.song-item:hover{
-    color:#3298DC;
+
+.song-item:hover {
+    color: #3298DC;
     border: 1px solid black;
-    border-bottom:none;
-<<<<<<< HEAD
-   
-}
-.song-listened{
-    background-color: grey;
-    font-style: italic;
-}
-.song-listened:hover{
-    color:grey
-=======
+    border-bottom: none;
     cursor: pointer;
-
->>>>>>> master
 }
 
 /* Each line in the lyrics */
@@ -86,11 +74,6 @@ body {
     font-variant: small-caps;
 }
 
-/* Always the first item in song list
-Displays whatever song was entered by the user */
-#user-entered-song {
-
-}
 
 /* Search button */
 /* #searchButton {} */
