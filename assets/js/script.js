@@ -250,7 +250,6 @@ const generateAllSongElements = async (artistNameSongNameArr = null) => {
         var now = Date.now()
         // async YouTube-Scraper request for search results from YouTube
         var youTubeId = await youTubeSearch(songInfo.track.name + " " + songInfo.track.artist.name);
-        var youTubeId = "gzOGocXy9Gw";
         // Generating YouTube embed on the page
         youTubeIframeSection.empty();
         youTubeIframeSection.append($("<iframe>").attr({
