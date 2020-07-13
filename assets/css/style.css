@@ -51,15 +51,36 @@ body {
 
 #songListSection {
     /* TODO adjust height (also media queries for mobile) */
+        cursor:pointer;
     height: 20rem;
     overflow-y: auto;
+    margin-left: 0;
+    padding-left: 0.5rem;
+    padding-right: 0.5rem;
 }
-
+.songSelection{
+    cursor:pointer;
+}
+/* .content li+li{
+    padding: 0em;
+} */
 /* Each song in the song list */
 .song-item {
     /* TODO add styling */
+    padding: 0.5rem;
+      margin-top: 0!important;
+      border: 1px solid;
+    border-bottom: none;
     font-variant: small-caps;
+
+  
+}
+.song-item:hover{
+    color:#3298DC;
+    border: 1px solid black;
+    border-bottom:none;
     cursor: pointer;
+
 }
 
 /* Each line in the lyrics */
