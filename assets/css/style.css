@@ -59,6 +59,7 @@ body {
 .song-item {
     /* TODO add styling */
     font-variant: small-caps;
+    cursor: pointer;
 }
 
 /* Each line in the lyrics */
