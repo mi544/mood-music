@@ -10,17 +10,17 @@ body {
 }
 
 
-.dot-windmill#lastFMLoader {}
+/* .dot-windmill#lastFMLoader {} */
 
-.dot-windmill#youTubeLoader {
+/* .dot-windmill#youTubeLoader {
     top: -20rem;
     right: -23rem;
-    display: none;
-    /* TODO FIX LAYOUT BY USING STATIC AND POSITIONING WITH BULMA */
-    /* position: static; */
-}
+    display: block;
+    TODO FIX LAYOUT BY USING STATIC AND POSITIONING WITH BULMA
+    position: static;
+} */
 
-.dot-windmill#geniusLyricsLoarder {}
+/* .dot-windmill#geniusLyricsLoarder {} */
 
 
 /* .my-class {
@@ -66,9 +66,7 @@ Displays whatever song was entered by the user */
 #user-entered-song {}
 
 /* Search button */
-#searchButton {
-    /* height: 100%; */
-}
+/* #searchButton {} */
 
 /* YouTube Video Embedded */
 #iframe-container {
@@ -86,9 +84,9 @@ Displays whatever song was entered by the user */
 }
 
 
-#welcomeSection {}
+/* #welcomeSection {} */
 
-.welcomeP {}
+/* .welcomeP {} */
 
 
 
