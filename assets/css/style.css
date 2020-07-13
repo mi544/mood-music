@@ -9,6 +9,13 @@ body {
     font-size: 1.2rem;
 }
 
+.border {
+    border: 2px groove lightgray;
+}
+
+.shadow {
+    box-shadow: 5px 5px lightgray;
+}
 
 /* .dot-windmill#lastFMLoader {} */
 
@@ -65,13 +72,15 @@ body {
       border: 1px solid;
     border-bottom: none;
     font-variant: small-caps;
+
   
 }
 .song-item:hover{
     color:#3298DC;
     border: 1px solid black;
     border-bottom:none;
-   
+    cursor: pointer;
+
 }
 
 /* Each line in the lyrics */
@@ -114,4 +123,8 @@ Displays whatever song was entered by the user */
 .container.is-fluid {
     padding-left: 0;
     padding-right: 0;
+}
+
+#youtube-parent {
+    box-shadow: 5px 10px lightgray;
 }
