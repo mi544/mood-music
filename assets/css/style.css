@@ -3,6 +3,12 @@
 body {
     /* TODO use the font here */
     font: 1.2rem "Baloo 2", sans-serif;
+
+    html {
+        height: 100%;
+        background: repeating-linear-gradient(-45deg, transparent, transparent 1em, rgba(127, 215, 245, 0.4) 0, rgba(127, 215, 245, 0.1) 2em, transparent 0, transparent 1em, rgba(127, 215, 245, 0.3) 0, rgba(127, 215, 245, 0.2) 4em, transparent 0, transparent 1em, rgba(192, 235, 250, 0.6) 0, rgba(192, 235, 250, 0.2) 2em), repeating-linear-gradient(45deg, transparent, transparent 1em, rgba(127, 215, 245, 0.4) 0, rgba(127, 215, 245, 0.1) 2em, transparent 0, transparent 1em, rgba(127, 215, 245, 0.3) 0, rgba(127, 215, 245, 0.2) 4em, transparent 0, transparent 1em, rgba(192, 235, 250, 0.4) 0, rgba(192, 235, 250, 0.1) 2em), #FFF;
+        background-blend-mode: multiply;
+    }
 }
 
 .tippy-content {
@@ -52,6 +58,7 @@ body {
 .song-item {
     /* TODO add styling */
     font-variant: small-caps;
+    cursor: pointer;
 }
 
 /* Each line in the lyrics */
