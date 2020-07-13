@@ -194,7 +194,7 @@ const generateSimilarSongs = (similarSongsArray, artistNameSongNameArr) => {
 
     songListSection.append($("<li>").attr({
         class: "song-item",
-        id: "enteredSong",
+        id: "userEnteredSong",
         "data-artist": artistName,
         "data-song": songName
     }).text(songName + " by " + artistName));
