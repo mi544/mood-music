@@ -37,7 +37,7 @@ const lastFMGetSimilarTracks = async (lastFMRes) => {
                 track: lastFMRes.track.name,
                 api_key: "0288ec49437b4cf920a1f4c62e1f1f2a",
                 format: "json",
-                limit: "10"
+                limit: "30"
             }
         })
         console.log("LastFM API: ", "Raw Response for similar tracks: ", lastFMSimilarTracks)
@@ -98,16 +98,14 @@ const geniusGetSongURLbyName = async (songName) => {
         }
     })
 
-    // TODO DEPLOY remove verbose logging (optionally)
     console.log("GeniusAPI: ", "Searching for: ", songName);
     console.log("GeniusAPI: ", geniusSearchResponse.response.hits.length, " results found.");
-    // TODO TALK always return first only?
+
     console.log("GeniusAPI: ", "Only returning the first result.");
     console.log(geniusSearchResponse.response)
     console.log("GeniusAPI: ", "[0] Full title: ", geniusSearchResponse.response.hits[0].result.full_title);
     console.log("GeniusAPI: ", "[0] Song URL: ", geniusSearchResponse.response.hits[0].result.url);
 
-    // TODO rename vars
     songURL = geniusSearchResponse.response.hits[0].result.url;
 
     return songURL;
