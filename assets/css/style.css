@@ -5,6 +5,24 @@ body {
     font: 1.2rem "Baloo 2", sans-serif;
 }
 
+.tippy-content {
+    font-size: 1.2rem;
+}
+
+
+.dot-windmill#lastFMLoader {}
+
+.dot-windmill#youTubeLoader {
+    top: -20rem;
+    right: -23rem;
+    display: none;
+    /* TODO FIX LAYOUT BY USING STATIC AND POSITIONING WITH BULMA */
+    /* position: static; */
+}
+
+.dot-windmill#geniusLyricsLoarder {}
+
+
 /* .my-class {
     background-image: url("../img/bg2.png");
     background-size: 20rem;

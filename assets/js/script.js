@@ -1,3 +1,13 @@
+const atippybox = tippy(document.querySelector("#artistSongInputFields"), {
+    content: "Sorry, it looks like you misspelled the song or artist name.. Please, please try that again! (We'll try our best to find it!)",
+    animation: "perspective-extreme",
+    placement: 'right',
+    maxWidth: 200,
+    // showOnCreate: true,
+    trigger: "manual",
+    delay: [500, 200],
+});
+
 // LastFM API
 const lastFMGetTrackInfo = async (artist, track) => {
     var lastFMSearchResponse = await $.ajax({
@@ -17,28 +27,36 @@ const lastFMGetTrackInfo = async (artist, track) => {
 }
 
 const lastFMGetSimilarTracks = async (lastFMRes) => {
-
-    var lastFMSimilarTracks = await $.ajax({
-        url: "https://ws.audioscrobbler.com/2.0/",
-        method: "GET",
-        data: {
-            method: "track.getsimilar",
-            artist: lastFMRes.track.artist.name,
-            track: lastFMRes.track.name,
-            api_key: "0288ec49437b4cf920a1f4c62e1f1f2a",
-            format: "json",
-            limit: "10"
+    try {
+        var lastFMSimilarTracks = await $.ajax({
+            url: "https://ws.audioscrobbler.com/2.0/",
+            method: "GET",
+            data: {
+                method: "track.getsimilar",
+                artist: lastFMRes.track.artist.name,
+                track: lastFMRes.track.name,
+                api_key: "0288ec49437b4cf920a1f4c62e1f1f2a",
+                format: "json",
+                limit: "10"
+            }
+        })
+        console.log("LastFM API: ", "Raw Response for similar tracks: ", lastFMSimilarTracks)
+        var similarTracks = [];
+        for (var i = 0; i < lastFMSimilarTracks.similartracks.track.length; i++) {
+            similarTracks.push(lastFMSimilarTracks.similartracks.track[i].name + ' by ' + lastFMSimilarTracks.similartracks.track[i].artist.name)
         }
-    })
-    console.log(lastFMSimilarTracks)
-    var similarTracks = [];
-    for (var i = 0; i < lastFMSimilarTracks.similartracks.track.length; i++) {
-        similarTracks.push(lastFMSimilarTracks.similartracks.track[i].name + ' by ' + lastFMSimilarTracks.similartracks.track[i].artist.name)
+
+        console.log("LastFM API: ", "Similar Tracks Array: ", similarTracks);
+
+        return similarTracks;
+    } catch (error) {
+        // trigger this if the user entered a song or artist name incorrectly
+        // timeout for smoother experience
+        setTimeout(() => atippybox.show(), 500)
+
+        // timeout 10 seconds and hide the tooltip (if not already closed by then)
+        setTimeout(() => atippybox.hide(), 10000)
     }
-
-    console.log(similarTracks);
-
-    return similarTracks;
 }
 // /!LastFM Api
 
@@ -84,7 +102,7 @@ const geniusGetSongURLbyName = async (songName) => {
     console.log("GeniusAPI: ", "Searching for: ", songName);
     console.log("GeniusAPI: ", geniusSearchResponse.response.hits.length, " results found.");
     // TODO TALK always return first only?
-    console.log("Only returning the first result.");
+    console.log("GeniusAPI: ", "Only returning the first result.");
     console.log(geniusSearchResponse.response)
     console.log("GeniusAPI: ", "[0] Full title: ", geniusSearchResponse.response.hits[0].result.full_title);
     console.log("GeniusAPI: ", "[0] Song URL: ", geniusSearchResponse.response.hits[0].result.url);
@@ -160,6 +178,45 @@ const generateLyrics = (geniusLyricsArray) => {
 
 
 const generateAllSongElements = async () => {
+    const youTube = async () => {
+        console.log("-------------------------------------STARTING YOUTUBE");
+        var now = Date.now()
+        // async YouTube-Scraper request for search results from YouTube
+        var youTubeId = await youTubeSearch(songInfo.track.name + " " + songInfo.track.artist.name);
+        // Generating YouTube embed on the page
+        youTubeIframeSection.empty();
+        youTubeIframeSection.append($("<iframe>").attr({
+            src: `https://www.youtube-nocookie.com/embed/${youTubeId}?modestbranding=1&showinfo=0&rel=0&iv_load_policy=3&fs=0&color=white&autohide=0`,
+            frameborder: "0",
+            allow: "autoplay; fullscreen; encrypted-media",
+            allowfullscreen: ""
+        }))
+        console.log("YOUTUBE: TOOK", Date.now() - now, "ms");
+
+    }
+
+    const genius = async () => {
+        console.log("-------------------------------------STARTING GENIUS");
+        var now = Date.now()
+        // async Genius request for song URL
+        var geniusSongURL = await geniusGetSongURLbyName(songInfo.track.name + " " + songInfo.track.artist.name);
+        // async Genius request for lyrics of that song
+        var geniusLyricsArray = await geniusGetLyricsBySongURL(geniusSongURL);
+        // Generating Genius lyrics on the page
+        generateLyrics(geniusLyricsArray);
+        console.log("GENIUS: TOOK", Date.now() - now, "ms");
+    }
+
+    const lastFM = async () => {
+        console.log("-------------------------------------STARTING LASTFM");
+        var now = Date.now()
+        // async lastFM request for similar songs
+        var lastFMSimilarSongsArray = await lastFMGetSimilarTracks(songInfo);
+        // Generating lastFM similar songs on the page
+        generateSimilarSongs(lastFMSimilarSongsArray, songInfo.track.name + " by " + songInfo.track.artist.name);
+        console.log("LASTFM: TOOK", Date.now() - now, "ms");
+    }
+
     var artistUserInput = $("#artistName");
     var songUserInput = $("#songName");
     var artistUser = artistUserInput.val().trim();
@@ -171,30 +228,9 @@ const generateAllSongElements = async () => {
     // async lastFM request for song information
     // everything else is based on that response
     var songInfo = await lastFMGetTrackInfo(artistUser, songUser);
-    // async lastFM request for similar songs
-    var lastFMSimilarSongsArray = await lastFMGetSimilarTracks(songInfo);
-    // async YouTube-Scraper request for search results from YouTube
-    var youTubeId = await youTubeSearch(songInfo.track.name + " " + songInfo.track.artist.name);
-    // async Genius request for song URL
-    var geniusSongURL = await geniusGetSongURLbyName(songInfo.track.name + " " + songInfo.track.artist.name);
-    // async Genius request for lyrics of that song
-    var geniusLyricsArray = await geniusGetLyricsBySongURL(geniusSongURL);
-
-    // Generating lastFM similar songs on the page
-    generateSimilarSongs(lastFMSimilarSongsArray, songInfo.track.name + " by " + songInfo.track.artist.name);
-
-    // Generating Genius lyrics on the page
-    generateLyrics(geniusLyricsArray);
-
-    // Generating YouTube embed on the page
-    youTubeIframeSection.empty();
-    youTubeIframeSection.append($("<iframe>").attr({
-        src: `https://www.youtube-nocookie.com/embed/${youTubeId}?modestbranding=1&showinfo=0&rel=0&iv_load_policy=3&fs=0&color=white&autohide=0`,
-        frameborder: "0",
-        gesture: "media",
-        allow: "autoplay; encrypted-media",
-        allowfullscreen: ""
-    }))
+    lastFM();
+    youTube();
+    genius();
 }
 
 
@@ -205,3 +241,5 @@ $("#searchButton").on("click", () => {
     event.preventDefault();
     generateAllSongElements();
 });
+
+// TODO also add the same popper if no suggestions were given (this song is not popular enough, sorry, try with another song please) and add emojis because we wanna stress that the song is not popular at all like not at all
