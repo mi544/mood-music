@@ -105,7 +105,7 @@ body {
     padding-right: 0;
 }
 
-#youtube-parent {
+#youtubeParent {
     box-shadow: 5px 10px lightgray;
 }
 
@@ -115,7 +115,10 @@ body {
 
 #exploreButton {
     max-width: 70%;
+    /* enabling text wrapping for the button */
     height: auto;
+    white-space: normal;
+
 }
 
 /* Working on mobile responsiveness */
@@ -125,16 +128,39 @@ body {
     }
 
     #songListSection {
-        margin-right: 35%;
+        margin-right: 15%;
+        padding-left: 0;
+        padding-right: 0;
     }
 
     #youTubeDiv {
-        margin-right: 15%;
-        margin-left: 1%;
+        margin-left: 2%;
+        margin-right: 3%;
+    }
+
+    #lyricsDiv {
+        margin-left: 3%;
+        margin-right: 22%;
+    }
+
+    #welcomeHero {
+        padding: 1rem;
     }
 
     #songDiv {
-        margin-left: 3%;
-        margin-right: 30%;
+        width: 90%;
+        margin-left: 2%;
+    }
+
+    #artistName,
+    #songName,
+    #searchButton {
+        width: 85%;
+        display: block;
+        margin-bottom: 0 !important;
+    }
+
+    #youtubeParent {
+        padding: 0.2rem
     }
 }
