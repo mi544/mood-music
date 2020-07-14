@@ -21,11 +21,6 @@ body {
     box-shadow: 5px 5px lightgray;
 }
 
-
-
-
-
-
 #userEnteredSong {
     text-decoration: underline black;
 }
@@ -39,13 +34,11 @@ body {
 }
 
 .song-item {
-    /* TODO add styling */
     padding: 0.5rem;
     margin-top: 0 !important;
     border: 1px solid;
     border-bottom: none;
     font-variant: small-caps;
-
 }
 
 .song-item:hover {
@@ -57,12 +50,11 @@ body {
 
 /* Each line in the lyrics */
 .lyrics-line {
-    /* TODO add styling */
     display: block;
     font-variant: small-caps;
 }
 
-/* YouTube Video Embedded */
+/* YouTube Video Embedded Element */
 #iframe-container {
     position: relative;
     width: 100%;
@@ -194,7 +186,7 @@ body {
 
     #lyricsDiv {
         margin-left: 3%;
-        margin-right: 22%;
+        margin-right: 20%;
     }
 
     #welcomeHero {
