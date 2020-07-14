@@ -1,12 +1,13 @@
 @import url('https://fonts.googleapis.com/css2?family=Baloo+2&display=swap');
-@import url('https://fonts.googleapis.com/css2?family=Open+Sans:wght@300&display=swap');
 
 body {
-    font: 1.2rem "Baloo 2", "Open Sans", sans-serif;
+    font: 1.2rem "Baloo 2", sans-serif;
 
     scrollbar-width: thin;
     scrollbar-color: blue orange;
 }
+
+
 
 .tippy-content {
     font-size: 1.2rem;
@@ -161,6 +162,31 @@ body {
 } */
 
 
+/* START OF the Scroll bar Customization Block */
+#songListSection::-webkit-scrollbar,
+#lyricsSection::-webkit-scrollbar {
+    width: 12px;
+    /* width of the entire scrollbar */
+}
+
+#songListSection::-webkit-scrollbar-track,
+#lyricsSection::-webkit-scrollbar-track {
+    background: lightgray;
+    /* color of the tracking area */
+    border-radius: 20px;
+}
+
+#songListSection::-webkit-scrollbar-thumb,
+#lyricsSection::-webkit-scrollbar-thumb {
+    background-color: #3298DC;
+    /* color of the scroll thumb */
+    border-radius: 20px;
+    /* roundness of the scroll thumb */
+}
+
+/* END OF the Scroll bar Customization Block */
+
+
 /* Working on mobile responsiveness */
 @media screen and (max-width: 769px) {
     #moodMusicTitle {
@@ -202,5 +228,13 @@ body {
 
     #youtubeParent {
         padding: 0.2rem
+    }
+
+
+
+    #songListSection::-webkit-scrollbar,
+    #lyricsSection::-webkit-scrollbar {
+        width: 6px;
+        /* width of the entire scrollbar */
     }
 }
