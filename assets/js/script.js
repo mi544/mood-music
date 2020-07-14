@@ -14,7 +14,7 @@ const songNotFoundCuteTippyBox = tippy(document.querySelector("#artistSongInputF
 
 // Not found similar songs tippy box (cute one)
 const similarNotFoundCuteTippyBox = tippy(document.querySelector("#songListSection"), {
-    content: "Similar songs not found. We really tried. The song is probably not popular enough, so we can't make an educated recommendation here.. you don't want to listen to some unrelated stuff now do you?",
+    content: "Similar songs not found. We really tried. The song is probably not popular enough, so we can't make an educated recommendation. Maybe check the spelling again?",
     animation: "perspective-extreme",
     placement: 'right',
     maxWidth: 200,

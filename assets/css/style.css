@@ -69,10 +69,6 @@ body {
     font-variant: small-caps;
 }
 
-
-/* Search button */
-/* #searchButton {} */
-
 /* YouTube Video Embedded */
 #iframe-container {
     position: relative;
@@ -92,14 +88,6 @@ body {
 .container.is-fluid {
     padding-left: 0;
     padding-right: 0;
-}
-
-#youtubeParent {
-    box-shadow: 5px 10px lightgray;
-}
-
-#welcomeHero {
-    padding: 2rem;
 }
 
 #exploreButton {
@@ -126,40 +114,41 @@ body {
     height: 20rem;
     overflow-y: auto;
     margin-left: 0;
-    padding-left: 0.5rem;
+    padding-left: 0;
     padding-right: 0.1rem;
 }
 
-/* #youTubeDiv {
-    margin-left: 2%;
-    margin-right: 3%;
-} */
+#youTubeDiv {
+    margin-left: 0;
+    margin-right: 0;
+}
 
-/* #lyricsDiv {
-    margin-left: 3%;
-    margin-right: 22%;
-} */
+#lyricsDiv {
+    margin-left: 0;
+    margin-right: 0;
+}
 
-/* #welcomeHero {
-    padding: 1rem;
-} */
+#welcomeHero {
+    padding: 0.2rem;
+}
 
-/* #songDiv {
-    width: 90%;
-    margin-left: 2%;
-} */
+#songDiv {
+    margin-left: 1%;
+}
 
-/* #artistName,
+#artistName,
 #songName,
 #searchButton {
-    width: 85%;
+    width: 100%;
     display: block;
     margin-bottom: 0 !important;
-} */
+}
 
-/* #youtubeParent {
-    padding: 0.2rem
-} */
+#youtubeParent {
+    padding: 0.2rem;
+    height: fit-content;
+    box-shadow: 5px 10px lightgray;
+}
 
 
 /* START OF the Scroll bar Customization Block */
