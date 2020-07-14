@@ -1,8 +1,8 @@
 @import url('https://fonts.googleapis.com/css2?family=Baloo+2&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Open+Sans:wght@300&display=swap');
 
 body {
-    /* TODO use the font here */
-    font: 1.2rem "Baloo 2", sans-serif;
+    font: 1.2rem "Baloo 2", "Open Sans", sans-serif;
 }
 
 .tippy-content {
@@ -113,9 +113,28 @@ body {
     padding: 2rem;
 }
 
-/* Media query for welcome h1 */
+#exploreButton {
+    max-width: 70%;
+    height: auto;
+}
+
+/* Working on mobile responsiveness */
 @media screen and (max-width: 769px) {
     #moodMusicTitle {
         margin-top: 0;
+    }
+
+    #songListSection {
+        margin-right: 35%;
+    }
+
+    #youTubeDiv {
+        margin-right: 15%;
+        margin-left: 1%;
+    }
+
+    #songDiv {
+        margin-left: 3%;
+        margin-right: 30%;
     }
 }

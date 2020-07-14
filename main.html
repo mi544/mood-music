@@ -3,7 +3,8 @@
 
 <head>
     <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <!-- this disables zoom on mobile devices -->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" />
     <link rel="icon" type="image/png" href="assets/img/favicon256.png" />
     <link href="https://cdn.jsdelivr.net/npm/bulma@0.9.0/css/bulma.min.css" rel="stylesheet" />
     <link href="https://unpkg.com/tippy.js@6/animations/perspective-extreme.css" rel="stylesheet" />
@@ -59,7 +60,7 @@
                 </article>
             </div>
             <!-- Youtube box -->
-            <div class="tile is-parent is-7">
+            <div class="tile is-parent is-7" id="youTubeDiv">
                 <article class="tile is-child notification is-info " id="youtube-parent">
                     <figure class="image is-4by3" id="iframe-container">
                         <!-- <div class="dot-windmill" id="youTubeLoader"></div> -->
@@ -68,7 +69,7 @@
                 </article>
             </div>
             <!-- Song Container  -->
-            <div class="tile is-parent">
+            <div class="tile is-parent" id="songDiv">
                 <article class="tile is-child">
                     <p class="title">Lyrics</p>
                     <div class="content" id="lyricsSection">
