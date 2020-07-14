@@ -5,7 +5,7 @@
 **You can access the deployed project here:
 <https://mi544.github.io/mood-music/>**
 
-![Updated](https://img.shields.io/static/v1?label=updated&message=July%2013th%202020&color=00D1B2&style=flat-square)
+![Updated](https://img.shields.io/static/v1?label=updated&message=July%2014th%202020&color=00D1B2&style=flat-square)
 
 
 ### *Just enter a song, and you will get a playlist of related songs with lyrics. Listen, discover, and sing along to your heart’s desire!*
