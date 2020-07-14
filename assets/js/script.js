@@ -218,7 +218,8 @@ const generateSimilarSongs = (similarSongsArray, artistNameSongNameArr) => {
         class: "song-item userEnteredSong listenedToSong",
         id: "currentlySelected",
         "data-artist": artistName,
-        "data-song": songName
+        "data-song": songName,
+        "data-user-entered": true
     }).text(songName + " by " + artistName);
     currentlyPlaying = userEnteredSong;
     songListSection.append(userEnteredSong);
@@ -349,23 +350,41 @@ $("#songListSection").on("click", ".song-item", (event) => {
 
     var currentSong = $(currentlyPlaying).data("song");
     var currentName = $(currentlyPlaying).data("artist");
+    var isUserEntered = $(currentlyPlaying).data("user-entered");
 
 
     if (currentName === artistName && currentSong === songName) {
         return false;
     }
 
-    $(currentlyPlaying).attr({
-        "class": "song-item listenedToSong",
-        "id": ""
-    });
+    console.log("OKAAY\n\n\n\n\n", $(currentlyPlaying).data("userEntered"));
 
-    // change highlight both from origin and put to new el
+    // checking if the song the user was listening to and click from was user entered
+    if (isUserEntered) {
+        $(currentlyPlaying).attr({
+            "class": "song-item userEnteredSong listenedToSong",
+            "id": ""
+        });
+    } else {
+        $(currentlyPlaying).attr({
+            "class": "song-item listenedToSong",
+            "id": ""
+        });
+    }
 
-    $(event.target).attr({
-        "class": "song-item listenedToSong",
-        "id": "currentlySelected"
-    })
+
+    // checking if the song the user clicked on was user entered
+    if ($(event.target).data("user-entered")) {
+        $(event.target).attr({
+            "class": "song-item userEnteredSong listenedToSong",
+            "id": "currentlySelected"
+        })
+    } else {
+        $(event.target).attr({
+            "class": "song-item listenedToSong",
+            "id": "currentlySelected"
+        })
+    }
 
     currentlyPlaying = $(event.target)
 
