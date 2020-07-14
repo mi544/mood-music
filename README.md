@@ -65,9 +65,9 @@ What can it do? What can it not!
 | ------------ | --------- |
 ![screenshot computer 1](assets/github/screenshot-computer.png)| ![screenshot computer 2](assets/github/screenshot-computer2.png)
 ![screenshot phone 2](assets/github/screenshot-phone1.png) | ![header](assets/github/screenshot-phone2.png)
-![screenshot phone 1](assets/github/phone1.gif) | ![screenshot phone 2](assets/github/phone2.gif)
-![header](assets/github/computer1.gif)
-![header](assets/github/computer2.gif)
+![screenshot phone gif 1](assets/github/phone1.gif) | ![screenshot phone gif 2](assets/github/phone2.gif)
+![screenshot computer gif 1](assets/github/computer1.gif)
+![screenshot computer gif 2](assets/github/computer2.gif)
 
 
 [![Back to top](https://img.shields.io/badge/Back%20to%20top-lightgrey?style=flat-square)](#index)
