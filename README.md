@@ -39,7 +39,7 @@ You can do it now. Introducing [**Mood Music**](https://mi544.github.io/mood-mus
 What can it do? What can it not!
 
 * _"No-Cookie"_ version of YouTube is used to respect your privacy - it isn't going to be saved in your YouTube watch history and is not going to affect your YouTube recommendations!
-* Custom SVG logo, high-quality favicon, **_the tortoise_****!**
+* Custom SVG logo, high-quality favicon, **_the tortoise_**!
 * Minimalistic design to make the app look impeccable
 * Great color palette that feels right
 * Completely, 100% mobile responsive and comfortable to use (even the tooltips work on mobile!)
@@ -54,9 +54,22 @@ What can it do? What can it not!
 
 # Authors
 * Maksim Verkhoturov
-* Jared 
+* Jared Schau
 * Mark McKenna
+* Preston Patterson
 * Connor Clare
-* ?
+
+
+
+![header](assets/github/screenshot-computer.png)
+![header](assets/github/screenshot-mobile.png)
+![header](assets/github/screenshot-computer2.png)
+![header](assets/github/screenshot-mobile2.png)
+
+![header](assets/github/phone1.gif)
+![header](assets/github/phone2.gif)
+![header](assets/github/computer1.gif)
+![header](assets/github/computer2.gif)
+
 
 [![Back to top](https://img.shields.io/badge/Back%20to%20top-lightgrey?style=flat-square)](#index)
