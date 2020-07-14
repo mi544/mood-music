@@ -85,7 +85,7 @@ const lastFMGetSimilarTracks = async (lastFMSearchResponse) => {
                     setTimeout(() => similarNotFoundCuteTippyBox.show(), 2000)
 
                     // timeout 10 seconds and hide the tooltip (if not already closed by then)
-                    setTimeout(() => similarNotFoundCuteTippyBox.hide(), 12000)
+                    setTimeout(() => similarNotFoundCuteTippyBox.hide(), 15000)
                     break;
                 }
             } else {
@@ -109,7 +109,7 @@ const lastFMGetSimilarTracks = async (lastFMSearchResponse) => {
         setTimeout(() => songNotFoundCuteTippyBox.show(), 500)
 
         // timeout 10 seconds and hide the tooltip (if not already closed by then)
-        setTimeout(() => songNotFoundCuteTippyBox.hide(), 10000)
+        setTimeout(() => songNotFoundCuteTippyBox.hide(), 12000)
     }
 }
 // /!LastFM Api
