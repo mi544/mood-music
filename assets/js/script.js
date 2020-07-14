@@ -1,11 +1,21 @@
-var listenedTo = [];
-var selectedSong = [];
+// Media Queries in JS
+// need to know where to show the tippy boxes (cute ones)
+if (window.matchMedia("screen and (max-width: 769px)").matches) {
+    console.log("okay it works iphone \n\n\n\n\n\n\n");
+    var placement = "bottom";
+} else {
+    console.log("okay it works computer \n\n\n\n\n\n\n");
+    var placement = "right";
+}
 
-// Misspelled song/artis name tippy box (cute one)
+var listenedTo;
+var selectedSong;
+
+// Misspelled song/artist name tippy box (cute one)
 const songNotFoundCuteTippyBox = tippy(document.querySelector("#artistSongInputFields"), {
     content: "Sorry, it looks like you misspelled the song or artist name.. Please, please try that again! (We'll try our best to find it!)",
     animation: "perspective-extreme",
-    placement: 'right',
+    placement: placement,
     maxWidth: 200,
     // showOnCreate: true,
     trigger: "manual",
@@ -16,7 +26,7 @@ const songNotFoundCuteTippyBox = tippy(document.querySelector("#artistSongInputF
 const similarNotFoundCuteTippyBox = tippy(document.querySelector("#songListSection"), {
     content: "Similar songs not found. We really tried. The song is probably not popular enough, so we can't make an educated recommendation. Maybe check the spelling again?",
     animation: "perspective-extreme",
-    placement: 'right',
+    placement: placement,
     maxWidth: 200,
     // showOnCreate: true,
     trigger: "manual",
