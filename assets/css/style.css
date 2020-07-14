@@ -18,7 +18,9 @@ body {
 }
 
 
-.moodMusicTitle {}
+#moodMusicTitle {
+    margin-top: 15rem;
+}
 
 
 
@@ -105,4 +107,15 @@ body {
 
 #youtube-parent {
     box-shadow: 5px 10px lightgray;
+}
+
+#welcomeHero {
+    padding: 2rem;
+}
+
+/* Media query for welcome h1 */
+@media screen and (max-width: 769px) {
+    #moodMusicTitle {
+        margin-top: 0;
+    }
 }
