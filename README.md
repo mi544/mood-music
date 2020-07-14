@@ -49,7 +49,7 @@ What can it do? What can it not!
 * Never get lost in the list (enough of getting lost!) - currently playing song is always highlighted in the list so you never lose it
 * Songs you already listened to are indicated are grayed out, so you always know what to listen to next!
 * Don't like the song? Change the whole list of recommendations in a matter of seconds.
-* Verbose logging in the console
+* Verbose logging in the developer console
 
 
 # Authors
