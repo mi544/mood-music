@@ -57,6 +57,5 @@ What can it do? What can it not!
 * Jared 
 * Mark McKenna
 * Connor Clare
-* ?
 
 [![Back to top](https://img.shields.io/badge/Back%20to%20top-lightgrey?style=flat-square)](#index)
