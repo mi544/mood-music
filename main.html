@@ -3,13 +3,26 @@
 
 <head>
     <meta charset="UTF-8" />
-    <!-- this disables zoom on mobile devices -->
+    <!-- This disables zoom on mobile devices -->
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" />
     <link rel="icon" type="image/png" href="assets/img/favicon256.png" />
     <link href="https://cdn.jsdelivr.net/npm/bulma@0.9.0/css/bulma.min.css" rel="stylesheet" />
     <link href="https://unpkg.com/tippy.js@6/animations/perspective-extreme.css" rel="stylesheet" />
+    <link href="https://cdn.jsdelivr.net/npm/simplebar@latest/dist/simplebar.css" rel="stylesheet" />
     <link href="assets/css/style.css" rel="stylesheet" />
     <title>Mood Music -> Listening</title>
+
+    <!-- Resetting Scrolling if JS is disabled (important for SimpleBar) -->
+    <noscript>
+        <style>
+            /**
+          * Reinstate scrolling for non-JS clients
+          */
+            .simplebar-content-wrapper {
+                overflow: auto;
+            }
+        </style>
+    </noscript>
 </head>
 
 <body>
@@ -18,7 +31,7 @@
         <nav class="navbar is-link" role="navigation" aria-label="main navigation">
             <div class="navbar-brand">
                 <a class="navbar-item" href="index.html">
-                    <img src="assets/img/logo-music.svg" alt="#" style="width:100px; height:100px">
+                    <img src="assets/img/logo-music.svg" alt="Mood Music Logo" id="moodMusicLogo" />
                 </a>
             </div>
         </nav>
@@ -39,6 +52,7 @@
                                     <button type="submit" class="button is-info" id="searchButton">
                                         Search
                                     </button>
+                                </div>
                             </form>
                         </div>
                     </div>
@@ -75,6 +89,8 @@
     <!-- Tippy.JS 3-rd party library (based on popper.js) -->
     <script src="https://unpkg.com/@popperjs/core@2"></script>
     <script src="https://unpkg.com/tippy.js@6"></script>
+    <!-- SimpleBar Import -->
+    <script src="https://cdn.jsdelivr.net/npm/simplebar@latest/dist/simplebar.min.js"></script>
     <!-- Script.JS Import -->
     <script src="assets/js/script.js"></script>
 

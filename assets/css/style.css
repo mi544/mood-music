@@ -3,7 +3,19 @@
 
 body {
     font: 1.2rem "Baloo 2", "Open Sans", sans-serif;
+
+    scrollbar-width: thin;
+    scrollbar-color: blue orange;
 }
+
+/* Custom Scrollbar */
+.area {
+    padding: 1rem;
+    background: white;
+    height: 250px;
+    overflow: auto;
+}
+
 
 .tippy-content {
     font-size: 1.2rem;
@@ -15,11 +27,6 @@ body {
 
 .shadow {
     box-shadow: 5px 5px lightgray;
-}
-
-
-#moodMusicTitle {
-    margin-top: 15rem;
 }
 
 
@@ -40,16 +47,6 @@ body {
 
 #userEnteredSong:hover {
     color: black;
-}
-
-#songListSection {
-    /* TODO adjust height (also media queries for mobile) */
-    cursor: pointer;
-    height: 20rem;
-    overflow-y: auto;
-    margin-left: 0;
-    padding-left: 0.5rem;
-    padding-right: 0.5rem;
 }
 
 .songSelection {
@@ -120,6 +117,58 @@ body {
     white-space: normal;
 
 }
+
+#moodMusicLogo {
+    height: 100px;
+    width: 100px;
+}
+
+
+/* /////////////////////// */
+#moodMusicTitle {
+    margin-top: 15rem;
+}
+
+#songListSection {
+    cursor: pointer;
+    height: 20rem;
+    overflow-y: auto;
+    margin-left: 0;
+    padding-left: 0.5rem;
+    padding-right: 0.1rem;
+}
+
+/* #youTubeDiv {
+    margin-left: 2%;
+    margin-right: 3%;
+} */
+
+/* #lyricsDiv {
+    margin-left: 3%;
+    margin-right: 22%;
+} */
+
+/* #welcomeHero {
+    padding: 1rem;
+} */
+
+/* #songDiv {
+    width: 90%;
+    margin-left: 2%;
+} */
+
+/* #artistName,
+#songName,
+#searchButton {
+    width: 85%;
+    display: block;
+    margin-bottom: 0 !important;
+} */
+
+/* #youtubeParent {
+    padding: 0.2rem
+} */
+
 
 /* Working on mobile responsiveness */
 @media screen and (max-width: 769px) {
