@@ -24,14 +24,7 @@ body {
 
 
 
-#lyricsSection {
-    /* TODO adjust height (also media queries for mobile) */
-    /* TODO increase the width */
-    height: 35rem;
-    /* max-width: 17rem; */
-    overflow-y: auto;
-    overflow-x: hidden;
-}
+
 
 #userEnteredSong {
     text-decoration: underline black;
@@ -111,11 +104,17 @@ body {
 
 #songListSection {
     cursor: pointer;
-    height: 20rem;
-    overflow-y: auto;
+    height: 55vh;
+    overflow-y: overlay;
     margin-left: 0;
     padding-left: 0;
     padding-right: 0.1rem;
+}
+
+#lyricsSection {
+    height: 68.4vh;
+    overflow-y: overlay;
+    overflow-x: hidden;
 }
 
 #youTubeDiv {
@@ -125,7 +124,7 @@ body {
 
 #lyricsDiv {
     margin-left: 0;
-    margin-right: 0;
+    margin-right: 1%;
 }
 
 #welcomeHero {
