@@ -24,10 +24,10 @@ const similarNotFoundCuteTippyBox = tippy(document.querySelector("#songListSecti
 });
 
 
-const timerAsync = (miliseconds) => {
+const timerAsync = (milliseconds) => {
     return new Promise((resolve, reject) => {
-        if (parseInt(miliseconds)) {
-            setTimeout(() => resolve(), miliseconds);
+        if (parseInt(milliseconds)) {
+            setTimeout(() => resolve(), milliseconds);
         } else {
             reject();
         }
