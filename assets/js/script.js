@@ -14,7 +14,7 @@ const songNotFoundCuteTippyBox = tippy(document.querySelector("#artistSongInputF
 
 // Not found similar songs tippy box (cute one)
 const similarNotFoundCuteTippyBox = tippy(document.querySelector("#songListSection"), {
-    content: "Similar songs not found. We really tried. The song is probably not popular enough, so we can't make an educated recommendation here.. you don't want to listen to some unrelated stuff now do you?",
+    content: "Similar songs not found. We really tried. The song is probably not popular enough, so we can't make an educated recommendation. Maybe check the spelling again?",
     animation: "perspective-extreme",
     placement: 'right',
     maxWidth: 200,
@@ -24,10 +24,10 @@ const similarNotFoundCuteTippyBox = tippy(document.querySelector("#songListSecti
 });
 
 
-const timerAsync = (miliseconds) => {
+const timerAsync = (milliseconds) => {
     return new Promise((resolve, reject) => {
-        if (parseInt(miliseconds)) {
-            setTimeout(() => resolve(), miliseconds);
+        if (parseInt(milliseconds)) {
+            setTimeout(() => resolve(), milliseconds);
         } else {
             reject();
         }
@@ -85,7 +85,7 @@ const lastFMGetSimilarTracks = async (lastFMSearchResponse) => {
                     setTimeout(() => similarNotFoundCuteTippyBox.show(), 2000)
 
                     // timeout 10 seconds and hide the tooltip (if not already closed by then)
-                    setTimeout(() => similarNotFoundCuteTippyBox.hide(), 12000)
+                    setTimeout(() => similarNotFoundCuteTippyBox.hide(), 15000)
                     break;
                 }
             } else {
@@ -109,7 +109,7 @@ const lastFMGetSimilarTracks = async (lastFMSearchResponse) => {
         setTimeout(() => songNotFoundCuteTippyBox.show(), 500)
 
         // timeout 10 seconds and hide the tooltip (if not already closed by then)
-        setTimeout(() => songNotFoundCuteTippyBox.hide(), 10000)
+        setTimeout(() => songNotFoundCuteTippyBox.hide(), 12000)
     }
 }
 // /!LastFM Api
@@ -250,7 +250,6 @@ const generateAllSongElements = async (artistNameSongNameArr = null) => {
         var now = Date.now()
         // async YouTube-Scraper request for search results from YouTube
         var youTubeId = await youTubeSearch(songInfo.track.name + " " + songInfo.track.artist.name);
-        var youTubeId = "gzOGocXy9Gw";
         // Generating YouTube embed on the page
         youTubeIframeSection.empty();
         youTubeIframeSection.append($("<iframe>").attr({

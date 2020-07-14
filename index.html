@@ -3,11 +3,12 @@
 
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- this disables zoom on mobile devices -->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" />
     <link rel="icon" type="image/png" href="assets/img/favicon256.png" />
-    <link href="https://cdn.jsdelivr.net/npm/bulma@0.9.0/css/bulma.min.css" rel="stylesheet">
-    <link rel="stylesheet" href="assets/css/style.css">
-    <title>Document</title>
+    <link href="https://cdn.jsdelivr.net/npm/bulma@0.9.0/css/bulma.min.css" rel="stylesheet" />
+    <link href="assets/css/style.css" rel="stylesheet" />
+    <title>Mood Music</title>
 
 </head>
 
@@ -17,21 +18,24 @@
         <nav class="navbar is-link" role="navigation" aria-label="main navigation">
             <div class="navbar-brand">
                 <a class="navbar-item" href="index.html">
-                    <img src="assets/img/logo-updated.svg" alt="logo" style="width:200px; height:200px">
+                    <img src="assets/img/logo-music.svg" alt="Mood Music Logo" id="moodMusicLogo" />
                 </a>
             </div>
         </nav>
         <!-- Header Need to add background image -->
         <section class="hero is-primary is-medium my-class border">
-            <div class="hero-body">
+            <div class="hero-body" id="welcomeHero">
                 <div class="container">
-                    <img src="assets/img/tortoise.png" alt="tortoise talking" style="width: 500px">
-                    <h1 class="title size is-size-2" style="display:inline-block;">
-                        Mood Music
-                        </h>
-                        <h2 class="subtitle">
+                    <div class="columns">
+                        <div class="column"><img src="assets/img/tortoise.png" alt="tortoise talking"
+                                id="tortoiseImage">
+                        </div>
+                        <div class="column">
+                            <h1 class="title size is-size-2" id="moodMusicTitle">Mood Music
+                            </h1>
+                        </div>
 
-                        </h2>
+                    </div>
                 </div>
             </div>
         </section>
@@ -40,10 +44,11 @@
                 <div class="columns">
                     <!-- two colums need to add info and welcome text as well as background styling -->
                     <div class="column notification is-primary has-text-centered shadow">
-                        <p class="is-size-5">The app suggests similar songs based on one favorite song of the user.
-                            The user can then listen to those songs through YouTube and see lyrics for corresponding
-                            songs.
-                        </p>
+                        <p class="is-size-5">Just enter a song, and we will suggest similar songs you may like.</p>
+                        <p class="is-size-5">You will get a
+                            playlist of related songs with lyrics. Listen,
+                            discover, and sing along to your heart’s desire!</p>
+
                     </div>
                 </div>
             </div>
@@ -81,7 +86,8 @@
             <div class="container">
                 <div class="columns">
                     <div class="column is-primary has-text-centered">
-                        <button onclick="window.location.href='main.html'" class="button is-large is-link ">Start
+                        <button onclick="window.location.href='main.html'" class="button is-large is-link"
+                            id="exploreButton">Start
                             Exploring New Songs</button>
                     </div>
                 </div>
