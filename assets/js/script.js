@@ -1,11 +1,19 @@
-var listenedTo = [];
-var selectedSong = [];
+// Media Queries in JS
+// need to know where to show the tippy boxes (cute ones)
+if (window.matchMedia("screen and (max-width: 769px)").matches) {
+    var placement = "bottom";
+} else {
+    var placement = "right";
+}
 
-// Misspelled song/artis name tippy box (cute one)
+var listenedTo = [];
+var currentlyPlaying;
+
+// Misspelled song/artist name tippy box (cute one)
 const songNotFoundCuteTippyBox = tippy(document.querySelector("#artistSongInputFields"), {
     content: "Sorry, it looks like you misspelled the song or artist name.. Please, please try that again! (We'll try our best to find it!)",
     animation: "perspective-extreme",
-    placement: 'right',
+    placement: placement,
     maxWidth: 200,
     // showOnCreate: true,
     trigger: "manual",
@@ -16,7 +24,7 @@ const songNotFoundCuteTippyBox = tippy(document.querySelector("#artistSongInputF
 const similarNotFoundCuteTippyBox = tippy(document.querySelector("#songListSection"), {
     content: "Similar songs not found. We really tried. The song is probably not popular enough, so we can't make an educated recommendation. Maybe check the spelling again?",
     animation: "perspective-extreme",
-    placement: 'right',
+    placement: placement,
     maxWidth: 200,
     // showOnCreate: true,
     trigger: "manual",
@@ -206,12 +214,14 @@ const generateSimilarSongs = (similarSongsArray, artistNameSongNameArr) => {
     var songListSection = $("#songListSection");
     songListSection.empty();
 
-    songListSection.append($("<li>").attr({
-        class: "song-item",
-        id: "userEnteredSong",
+    var userEnteredSong = $("<li>").attr({
+        class: "song-item userEnteredSong listenedToSong",
+        id: "currentlySelected",
         "data-artist": artistName,
         "data-song": songName
-    }).text(songName + " by " + artistName));
+    }).text(songName + " by " + artistName);
+    currentlyPlaying = userEnteredSong;
+    songListSection.append(userEnteredSong);
 
     for (var artistNameSongName of similarSongsArray) {
         songListSection.append($("<li>").attr({
@@ -329,12 +339,7 @@ const generateAllSongElements = async (artistNameSongNameArr = null) => {
 $("#searchButton").on("click", () => {
     event.preventDefault();
 
-    var songName = $("#artistName").val();
-    var artistName = $("#songName").data();
-
     generateAllSongElements();
-
-    selectedSong = [artistName, songName];
 });
 
 // Song from the song list on click event
@@ -342,15 +347,28 @@ $("#songListSection").on("click", ".song-item", (event) => {
     var songName = $(event.target).data("song");
     var artistName = $(event.target).data("artist");
 
-    // if () {}
+    var currentSong = $(currentlyPlaying).data("song");
+    var currentName = $(currentlyPlaying).data("artist");
 
 
-    if (artistName === selectedSong[0] && songName === selectedSong[1]) {
+    if (currentName === artistName && currentSong === songName) {
         return false;
     }
 
-    generateAllSongElements([artistName, songName]);
+    $(currentlyPlaying).attr({
+        "class": "song-item listenedToSong",
+        "id": ""
+    });
 
-    selectedSong = [artistName, songName];
-    listenedTo.push([artistName, songName]);
+    // change highlight both from origin and put to new el
+
+    $(event.target).attr({
+        "class": "song-item listenedToSong",
+        "id": "currentlySelected"
+    })
+
+    currentlyPlaying = $(event.target)
+
+    generateAllSongElements([artistName, songName]);
+    // change highligh to gray as well but id is priority
 })
