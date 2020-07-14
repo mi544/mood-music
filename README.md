@@ -57,7 +57,6 @@ What can it do? What can it not!
 * Jared Schau
 * Mark McKenna
 * Preston Patterson
-* Connor Clare
 
 
 
