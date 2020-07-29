@@ -1,6 +1,6 @@
 // Media Queries in JS
 // need to know where to show the tippy boxes (cute ones)
-if (window.matchMedia("screen and (max-width: 769px)").matches) {
+if (window.matchMedia("(max-width: 769px)").matches) {
     var placement = "bottom";
 } else {
     var placement = "right";
