@@ -1,13 +1,16 @@
 // Media Queries in JS
 // need to know where to show the tippy boxes (cute ones)
-if (window.matchMedia("screen and (max-width: 769px)").matches) {
-    var placement = "bottom";
-} else {
-    var placement = "right";
+const mediaQuery = () => {
+    if (window.matchMedia("(max-width: 769px)").matches) {
+        return "bottom";
+    } else {
+        return "right";
+    }
 }
+let currentlyPlaying;
 
-var listenedTo = [];
-var currentlyPlaying;
+// running a media query check
+const placement = mediaQuery();
 
 // Misspelled song/artist name tippy box (cute one)
 const songNotFoundCuteTippyBox = tippy(document.querySelector("#artistSongInputFields"), {
@@ -44,7 +47,7 @@ const timerAsync = (milliseconds) => {
 
 // LastFM API
 const lastFMGetTrackInfo = async (artist, track) => {
-    var lastFMSearchResponse = await $.ajax({
+    const lastFMSearchResponse = await $.ajax({
         url: "https://ws.audioscrobbler.com/2.0/",
         method: "GET",
         data: {
@@ -56,7 +59,7 @@ const lastFMGetTrackInfo = async (artist, track) => {
             format: "json",
         }
     })
-    console.log("LastFM API: ", "Raw response for track info", lastFMSearchResponse)
+    // console.log("LastFM API: ", "Raw response for track info", lastFMSearchResponse)
     return lastFMSearchResponse;
 }
 
@@ -64,11 +67,12 @@ const lastFMGetSimilarTracks = async (lastFMSearchResponse) => {
     // try catch block to catch an error if the array passed turns out empty
     // (invalid song/artist name passed to the previous function - lastFMGetTrackInfo)
     try {
-        var i = 0;
-        var j = 0;
+        let i = 0;
+        let j = 0;
+        let lastFMSimilarTracks;
         // while loop to keep requesting if invalid result received
         while (i < 1) {
-            var lastFMSimilarTracks = await $.ajax({
+            lastFMSimilarTracks = await $.ajax({
                 url: "https://ws.audioscrobbler.com/2.0/",
                 method: "GET",
                 data: {
@@ -82,11 +86,11 @@ const lastFMGetSimilarTracks = async (lastFMSearchResponse) => {
             })
 
             if (!lastFMSimilarTracks.similartracks.track.length) {
-                console.log("--------------------ERROR--Similar-Tracks-----------------");
-                console.log("LastFM API: ", "Raw Response for similar tracks: ", lastFMSimilarTracks)
-                console.log("LastFM API: ", "Empty Similar Tracks returned\nRETRYING IN 2 SECONDS!");
+                // console.log("--------------------ERROR--Similar-Tracks-----------------");
+                // console.log("LastFM API: ", "Raw Response for similar tracks: ", lastFMSimilarTracks)
+                // console.log("LastFM API: ", "Empty Similar Tracks returned\nRETRYING IN 2 SECONDS!");
                 await timerAsync(2000);
-                console.log("LastFM API: ", "RETRYING NOW!");
+                // console.log("LastFM API: ", "RETRYING NOW!");
                 j++;
                 if (j >= 2) {
                     // timeout for smoother experience
@@ -101,13 +105,13 @@ const lastFMGetSimilarTracks = async (lastFMSearchResponse) => {
             }
         }
 
-        console.log("LastFM API: ", "Raw Response for similar tracks: ", lastFMSimilarTracks)
-        var similarTracks = [];
-        for (var i = 0; i < lastFMSimilarTracks.similartracks.track.length; i++) {
+        // console.log("LastFM API: ", "Raw Response for similar tracks: ", lastFMSimilarTracks)
+        const similarTracks = [];
+        for (let i = 0; i < lastFMSimilarTracks.similartracks.track.length; i++) {
             similarTracks.push([lastFMSimilarTracks.similartracks.track[i].artist.name, lastFMSimilarTracks.similartracks.track[i].name])
         }
 
-        console.log("LastFM API: ", "Similar Tracks Array: ", similarTracks);
+        // console.log("LastFM API: ", "Similar Tracks Array: ", similarTracks);
 
         return similarTracks;
     } catch (error) {
@@ -127,9 +131,9 @@ const lastFMGetSimilarTracks = async (lastFMSearchResponse) => {
 
 // YouTube
 const youTubeSearch = async (searchQuery) => {
-    var youTubeSearchResult = await $.ajax({
+    const youTubeSearchResult = await $.ajax({
         type: 'GET',
-        url: 'https://cors-anywhere.herokuapp.com/http://youtube-scrape.herokuapp.com/api/search',
+        url: 'https://cors-anywhere55.herokuapp.com/http://youtube-scrape55.herokuapp.com/api/search',
         dataType: "json",
         data: {
             q: searchQuery,
@@ -151,7 +155,7 @@ const youTubeSearch = async (searchQuery) => {
 // Returns a URL of the first result
 const geniusGetSongURLbyName = async (songName) => {
     // requesting search results from genius.com
-    var geniusSearchResponse = await $.ajax({
+    const geniusSearchResponse = await $.ajax({
         url: "https://api.genius.com/search",
         type: "GET",
         data: {
@@ -160,13 +164,13 @@ const geniusGetSongURLbyName = async (songName) => {
         }
     })
 
-    console.log("GeniusAPI: ", "Searching for: ", songName);
-    console.log("GeniusAPI: ", geniusSearchResponse.response.hits.length, " results found.");
+    // console.log("GeniusAPI: ", "Searching for: ", songName);
+    // console.log("GeniusAPI: ", geniusSearchResponse.response.hits.length, " results found.");
 
-    console.log("GeniusAPI: ", "Only returning the first result.");
-    console.log("GeniusAPI: ", "Raw response for Genius song lyrics", geniusSearchResponse)
-    console.log("GeniusAPI: ", "[0] Full title: ", geniusSearchResponse.response.hits[0].result.full_title);
-    console.log("GeniusAPI: ", "[0] Song URL: ", geniusSearchResponse.response.hits[0].result.url);
+    // console.log("GeniusAPI: ", "Only returning the first result.");
+    // console.log("GeniusAPI: ", "Raw response for Genius song lyrics", geniusSearchResponse)
+    // console.log("GeniusAPI: ", "[0] Full title: ", geniusSearchResponse.response.hits[0].result.full_title);
+    // console.log("GeniusAPI: ", "[0] Song URL: ", geniusSearchResponse.response.hits[0].result.url);
 
     songURL = geniusSearchResponse.response.hits[0].result.url;
 
@@ -180,21 +184,21 @@ const geniusGetSongURLbyName = async (songName) => {
 // Returns song lyrics as an array
 // where one item of the array equals one line of lyrics
 const geniusGetLyricsBySongURL = async (geniusSongUrl) => {
-    var regexATagsOpeningFull = new RegExp("<a[\\s\\S]*?>|</a>|<p>|</p>|<!--/", "g");
+    const regexATagsOpeningFull = new RegExp("<a[\\s\\S]*?>|</a>|<p>|</p>|<!--/", "g");
 
     // requesting the html page of the geniusSongUrl
     // assigning the response of the call to geniusSearchResponse
-    var songHTML = await $.ajax({
-        url: `https://cors-anywhere.herokuapp.com/${geniusSongUrl}`,
+    let songHTML = await $.ajax({
+        url: `https://cors-anywhere55.herokuapp.com/${geniusSongUrl}`,
         type: "GET",
         dataType: "html"
     })
 
     songHTML = songHTML.split("sse-->");
 
-    var songLyricsArr = songHTML[3].replace(regexATagsOpeningFull, "").trim().split("<br>");
+    const songLyricsArr = songHTML[3].replace(regexATagsOpeningFull, "").trim().split("<br>");
 
-    console.log(songLyricsArr);
+    // console.log(songLyricsArr);
 
     return songLyricsArr;
 }
@@ -208,13 +212,13 @@ const geniusGetLyricsBySongURL = async (geniusSongUrl) => {
 // :name of the currently entered song
 const generateSimilarSongs = (similarSongsArray, artistNameSongNameArr) => {
 
-    var artistName = artistNameSongNameArr[0];
-    var songName = artistNameSongNameArr[1];
+    const artistName = artistNameSongNameArr[0];
+    const songName = artistNameSongNameArr[1];
 
-    var songListSection = $("#songListSection");
+    const songListSection = $("#songListSection");
     songListSection.empty();
 
-    var userEnteredSong = $("<li>").attr({
+    const userEnteredSong = $("<li>").attr({
         class: "song-item userEnteredSong listenedToSong",
         id: "currentlySelected",
         "data-artist": artistName,
@@ -224,7 +228,7 @@ const generateSimilarSongs = (similarSongsArray, artistNameSongNameArr) => {
     currentlyPlaying = userEnteredSong;
     songListSection.append(userEnteredSong);
 
-    for (var artistNameSongName of similarSongsArray) {
+    for (const artistNameSongName of similarSongsArray) {
         songListSection.append($("<li>").attr({
             class: "song-item",
             "data-artist": artistNameSongName[0],
@@ -242,10 +246,10 @@ const generateSimilarSongs = (similarSongsArray, artistNameSongNameArr) => {
 // takes 1 positional argument
 // :lyrics as an array (1 line - 1 item)
 const generateLyrics = (geniusLyricsArray) => {
-    var lyricsSection = $("#lyricsSection");
+    const lyricsSection = $("#lyricsSection");
     lyricsSection.empty();
 
-    for (item of geniusLyricsArray) {
+    for (const item of geniusLyricsArray) {
         lyricsSection.append($("<span>").attr("class", "lyrics-line").html(item));
     }
 
@@ -257,10 +261,10 @@ const generateLyrics = (geniusLyricsArray) => {
 // otherwise using values from input fields
 const generateAllSongElements = async (artistNameSongNameArr = null) => {
     const youTube = async () => {
-        console.log("-------------------------------------STARTING YOUTUBE FUNCTION");
-        var now = Date.now()
+        // console.log("-------------------------------------STARTING YOUTUBE FUNCTION");
+        const now = Date.now()
         // async YouTube-Scraper request for search results from YouTube
-        var youTubeId = await youTubeSearch(songInfo.track.name + " " + songInfo.track.artist.name);
+        const youTubeId = await youTubeSearch(songInfo.track.name + " " + songInfo.track.artist.name);
         // Generating YouTube embed on the page
         youTubeIframeSection.empty();
         youTubeIframeSection.append($("<iframe>").attr({
@@ -269,47 +273,49 @@ const generateAllSongElements = async (artistNameSongNameArr = null) => {
             allow: "autoplay; fullscreen; encrypted-media",
             allowfullscreen: ""
         }))
-        console.log("YOUTUBE: TOOK", Date.now() - now, "ms");
+        // console.log("YOUTUBE: TOOK", Date.now() - now, "ms");
 
     }
 
     const genius = async () => {
-        console.log("-------------------------------------STARTING GENIUS FUNCTION");
-        var now = Date.now()
+        // console.log("-------------------------------------STARTING GENIUS FUNCTION");
+        const now = Date.now()
         // async Genius request for song URL
-        var geniusSongURL = await geniusGetSongURLbyName(songInfo.track.artist.name + " " + songInfo.track.name);
+        const geniusSongURL = await geniusGetSongURLbyName(songInfo.track.artist.name + " " + songInfo.track.name);
         // async Genius request for lyrics of that song
-        var geniusLyricsArray = await geniusGetLyricsBySongURL(geniusSongURL);
+        const geniusLyricsArray = await geniusGetLyricsBySongURL(geniusSongURL);
         // Generating Genius lyrics on the page
         generateLyrics(geniusLyricsArray);
-        console.log("GENIUS: TOOK", Date.now() - now, "ms");
+        // console.log("GENIUS: TOOK", Date.now() - now, "ms");
     }
 
     const lastFM = async () => {
-        console.log("-------------------------------------STARTING LASTFM FUNCTION");
-        var now = Date.now()
+        // console.log("-------------------------------------STARTING LASTFM FUNCTION");
+        const now = Date.now()
         // async lastFM request for similar songs
-        var lastFMSimilarSongsArray = await lastFMGetSimilarTracks(songInfo);
+        const lastFMSimilarSongsArray = await lastFMGetSimilarTracks(songInfo);
         // Generating lastFM similar songs on the page
         generateSimilarSongs(lastFMSimilarSongsArray, [songInfo.track.artist.name, songInfo.track.name]);
-        console.log("LASTFM: TOOK", Date.now() - now, "ms");
+        // console.log("LASTFM: TOOK", Date.now() - now, "ms");
     }
 
-    var artistUserInput = $("#artistName");
-    var songUserInput = $("#songName");
+    let artistUserInput = $("#artistName");
+    let songUserInput = $("#songName");
+    let artistUser;
+    let songUser;
     if (!artistNameSongNameArr) {
-        var artistUser = artistUserInput.val().trim();
+        artistUser = artistUserInput.val().trim();
         artistUserInput.val("");
     } else {
-        var artistUser = artistNameSongNameArr[0];
+        artistUser = artistNameSongNameArr[0];
     }
     if (!artistNameSongNameArr) {
-        var songUser = songUserInput.val().trim();
+        songUser = songUserInput.val().trim();
         songUserInput.val("");
     } else {
-        var songUser = artistNameSongNameArr[1];
+        songUser = artistNameSongNameArr[1];
     }
-    var youTubeIframeSection = $("#iframe-container");
+    const youTubeIframeSection = $("#iframe-container");
 
     if (!artistUser) {
         // No artist name received
@@ -325,8 +331,8 @@ const generateAllSongElements = async (artistNameSongNameArr = null) => {
 
     // async lastFM request for song information
     // everything else is based on that response
-    console.log("-------------------------------------STARTING LASTFM");
-    var songInfo = await lastFMGetTrackInfo(artistUser, songUser);
+    // console.log("-------------------------------------STARTING LASTFM");
+    const songInfo = await lastFMGetTrackInfo(artistUser, songUser);
     if (!artistNameSongNameArr) {
         lastFM();
     }
@@ -345,19 +351,19 @@ $("#searchButton").on("click", () => {
 
 // Song from the song list on click event
 $("#songListSection").on("click", ".song-item", (event) => {
-    var songName = $(event.target).data("song");
-    var artistName = $(event.target).data("artist");
+    const songName = $(event.target).data("song");
+    const artistName = $(event.target).data("artist");
 
-    var currentSong = $(currentlyPlaying).data("song");
-    var currentName = $(currentlyPlaying).data("artist");
-    var isUserEntered = $(currentlyPlaying).data("user-entered");
+    const currentSong = $(currentlyPlaying).data("song");
+    const currentName = $(currentlyPlaying).data("artist");
+    const isUserEntered = $(currentlyPlaying).data("user-entered");
 
 
     if (currentName === artistName && currentSong === songName) {
         return false;
     }
 
-    console.log("OKAAY\n\n\n\n\n", $(currentlyPlaying).data("userEntered"));
+    // console.log("OKAAY\n\n\n\n\n", $(currentlyPlaying).data("userEntered"));
 
     // checking if the song the user was listening to and click from was user entered
     if (isUserEntered) {

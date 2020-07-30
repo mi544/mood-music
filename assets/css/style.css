@@ -187,7 +187,7 @@ body {
 
 
 /* Working on mobile responsiveness */
-@media screen and (max-width: 769px) {
+@media (max-width: 769px) {
     #moodMusicTitle {
         margin-top: 0;
     }
