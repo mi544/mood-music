@@ -59,7 +59,7 @@ const lastFMGetTrackInfo = async (artist, track) => {
             format: "json",
         }
     })
-    console.log("LastFM API: ", "Raw response for track info", lastFMSearchResponse)
+
     return lastFMSearchResponse;
 }
 
@@ -87,7 +87,7 @@ const lastFMGetSimilarTracks = async (lastFMSearchResponse) => {
 
             if (!lastFMSimilarTracks.similartracks.track.length) {
 
-                console.log("LastFM API: ", "Raw Response for similar tracks: ", lastFMSimilarTracks)
+
 
                 await timerAsync(2000);
 
@@ -105,7 +105,7 @@ const lastFMGetSimilarTracks = async (lastFMSearchResponse) => {
             }
         }
 
-        console.log("LastFM API: ", "Raw Response for similar tracks: ", lastFMSimilarTracks)
+
         const similarTracks = [];
         for (let i = 0; i < lastFMSimilarTracks.similartracks.track.length; i++) {
             similarTracks.push([lastFMSimilarTracks.similartracks.track[i].artist.name, lastFMSimilarTracks.similartracks.track[i].name])
@@ -169,7 +169,7 @@ const geniusGetSongURLbyName = async (songName) => {
 
 
 
-    console.log("GeniusAPI: ", "Raw response for Genius song lyrics", geniusSearchResponse)
+
 
 
 
