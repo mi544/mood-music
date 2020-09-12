@@ -133,7 +133,8 @@ const lastFMGetSimilarTracks = async (lastFMSearchResponse) => {
 const youTubeSearch = async (searchQuery) => {
     const youTubeSearchResult = await $.ajax({
         type: 'GET',
-        url: 'https://cors-anywhere55.herokuapp.com/http://youtube-scrape55.herokuapp.com/api/search',
+        // no-cors headers requests a youtube scraper
+        url: 'http://167.172.223.24:3003/http://167.172.223.24:3002/api/search',
         dataType: "json",
         data: {
             q: searchQuery,
@@ -189,7 +190,8 @@ const geniusGetLyricsBySongURL = async (geniusSongUrl) => {
     // requesting the html page of the geniusSongUrl
     // assigning the response of the call to geniusSearchResponse
     let songHTML = await $.ajax({
-        url: `https://cors-anywhere55.herokuapp.com/${geniusSongUrl}`,
+        // cors anywhere
+        url: `http://167.172.223.24:3003/${geniusSongUrl}`,
         type: "GET",
         dataType: "html"
     })
