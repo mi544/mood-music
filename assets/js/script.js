@@ -134,7 +134,7 @@ const youTubeSearch = async (searchQuery) => {
     const youTubeSearchResult = await $.ajax({
         type: 'GET',
         // no-cors headers requests a youtube scraper
-        url: 'http://167.172.223.24:3003/http://167.172.223.24:3002/api/search',
+        url: 'https://no-cors.tk/https://youtube-parse.tk//api/search',
         dataType: "json",
         data: {
             q: searchQuery,
@@ -190,8 +190,8 @@ const geniusGetLyricsBySongURL = async (geniusSongUrl) => {
     // requesting the html page of the geniusSongUrl
     // assigning the response of the call to geniusSearchResponse
     let songHTML = await $.ajax({
-        // cors anywhere
-        url: `http://167.172.223.24:3003/${geniusSongUrl}`,
+        // no-cors headers
+        url: `https://no-cors.tk/${geniusSongUrl}`,
         type: "GET",
         dataType: "html"
     })
