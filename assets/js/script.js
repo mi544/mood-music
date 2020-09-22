@@ -1,4 +1,3 @@
-
 const mediaQuery = () => {
     if (window.matchMedia("(max-width: 769px)").matches) {
         return "bottom";
@@ -13,7 +12,6 @@ const songNotFoundCuteTippyBox = tippy(document.querySelector("#artistSongInputF
     animation: "perspective-extreme",
     placement: placement,
     maxWidth: 200,
-
     trigger: "manual",
     delay: [500, 200],
 });
@@ -22,7 +20,6 @@ const similarNotFoundCuteTippyBox = tippy(document.querySelector("#songListSecti
     animation: "perspective-extreme",
     placement: placement,
     maxWidth: 200,
-
     trigger: "manual",
     delay: [500, 200],
 });
@@ -48,17 +45,13 @@ const lastFMGetTrackInfo = async (artist, track) => {
             format: "json",
         }
     })
-
     return lastFMSearchResponse;
 }
 const lastFMGetSimilarTracks = async (lastFMSearchResponse) => {
-
-
     try {
         let i = 0;
         let j = 0;
         let lastFMSimilarTracks;
-
         while (i < 1) {
             lastFMSimilarTracks = await $.ajax({
                 url: "https://ws.audioscrobbler.com/2.0/",
@@ -73,16 +66,10 @@ const lastFMGetSimilarTracks = async (lastFMSearchResponse) => {
                 }
             })
             if (!lastFMSimilarTracks.similartracks.track.length) {
-
-
-
                 await timerAsync(2000);
-
                 j++;
                 if (j >= 2) {
-
                     setTimeout(() => similarNotFoundCuteTippyBox.show(), 2000)
-
                     setTimeout(() => similarNotFoundCuteTippyBox.hide(), 15000)
                     break;
                 }
@@ -90,25 +77,19 @@ const lastFMGetSimilarTracks = async (lastFMSearchResponse) => {
                 i++;
             }
         }
-
         const similarTracks = [];
         for (let i = 0; i < lastFMSimilarTracks.similartracks.track.length; i++) {
             similarTracks.push([lastFMSimilarTracks.similartracks.track[i].artist.name, lastFMSimilarTracks.similartracks.track[i].name])
         }
-
         return similarTracks;
     } catch (error) {
-
-
         setTimeout(() => songNotFoundCuteTippyBox.show(), 500)
-
         setTimeout(() => songNotFoundCuteTippyBox.hide(), 12000)
     }
 }
 const youTubeSearch = async (searchQuery) => {
     const youTubeSearchResult = await $.ajax({
         type: 'GET',
-
         url: 'https://no-cors.tk/https://youtube-parse.tk//api/search',
         dataType: "json",
         data: {
@@ -116,11 +97,9 @@ const youTubeSearch = async (searchQuery) => {
             page: '1'
         }
     })
-
     return youTubeSearchResult.results[0].video.id;
 }
 const geniusGetSongURLbyName = async (songName) => {
-
     const geniusSearchResponse = await $.ajax({
         url: "https://api.genius.com/search",
         type: "GET",
@@ -129,28 +108,18 @@ const geniusGetSongURLbyName = async (songName) => {
             access_token: "39mbxzJoZqsELd5bHonlLHTdSRSj3vqWGn3pJ8mYRSad_y4K8maYbOKqgle3YeWA"
         }
     })
-
-
-
-
-
-
     songURL = geniusSearchResponse.response.hits[0].result.url;
     return songURL;
 }
 const geniusGetLyricsBySongURL = async (geniusSongUrl) => {
     const regexATagsOpeningFull = new RegExp("<a[\\s\\S]*?>|</a>|<p>|</p>|<!--/", "g");
-
-
     let songHTML = await $.ajax({
-
         url: `https://no-cors.tk/${geniusSongUrl}`,
         type: "GET",
         dataType: "html"
     })
     songHTML = songHTML.split("sse-->");
     const songLyricsArr = songHTML[3].replace(regexATagsOpeningFull, "").trim().split("<br>");
-
     return songLyricsArr;
 }
 const generateSimilarSongs = (similarSongsArray, artistNameSongNameArr) => {
@@ -175,7 +144,6 @@ const generateSimilarSongs = (similarSongsArray, artistNameSongNameArr) => {
         }).text(artistNameSongName[1] + " by " +
             artistNameSongName[0]));
     }
-
     $(songListSection.children()[songListSection.children().length - 1]).attr("style", "border-bottom: 1px solid black");
 }
 const generateLyrics = (geniusLyricsArray) => {
@@ -187,11 +155,8 @@ const generateLyrics = (geniusLyricsArray) => {
 }
 const generateAllSongElements = async (artistNameSongNameArr = null) => {
     const youTube = async () => {
-
         const now = Date.now()
-
         const youTubeId = await youTubeSearch(songInfo.track.name + " " + songInfo.track.artist.name);
-
         youTubeIframeSection.empty();
         youTubeIframeSection.append($("<iframe>").attr({
             src: `https://www.youtube-nocookie.com/embed/${youTubeId}?modestbranding=1&showinfo=0&rel=0&iv_load_policy=3&fs=0&color=white&autohide=0`,
@@ -199,27 +164,17 @@ const generateAllSongElements = async (artistNameSongNameArr = null) => {
             allow: "autoplay; fullscreen; encrypted-media",
             allowfullscreen: ""
         }))
-
     }
     const genius = async () => {
-
         const now = Date.now()
-
         const geniusSongURL = await geniusGetSongURLbyName(songInfo.track.artist.name + " " + songInfo.track.name);
-
         const geniusLyricsArray = await geniusGetLyricsBySongURL(geniusSongURL);
-
         generateLyrics(geniusLyricsArray);
-
     }
     const lastFM = async () => {
-
         const now = Date.now()
-
         const lastFMSimilarSongsArray = await lastFMGetSimilarTracks(songInfo);
-
         generateSimilarSongs(lastFMSimilarSongsArray, [songInfo.track.artist.name, songInfo.track.name]);
-
     }
     let artistUserInput = $("#artistName");
     let songUserInput = $("#songName");
@@ -239,18 +194,11 @@ const generateAllSongElements = async (artistNameSongNameArr = null) => {
     }
     const youTubeIframeSection = $("#iframe-container");
     if (!artistUser) {
-
         return false;
-
     }
     if (!songUser) {
-
         return false;
-
     }
-
-
-
     const songInfo = await lastFMGetTrackInfo(artistUser, songUser);
     if (!artistNameSongNameArr) {
         lastFM();
@@ -271,8 +219,6 @@ $("#songListSection").on("click", ".song-item", (event) => {
     if (currentName === artistName && currentSong === songName) {
         return false;
     }
-
-
     if (isUserEntered) {
         $(currentlyPlaying).attr({
             "class": "song-item userEnteredSong listenedToSong",
@@ -284,7 +230,6 @@ $("#songListSection").on("click", ".song-item", (event) => {
             "id": ""
         });
     }
-
     if ($(event.target).data("user-entered")) {
         $(event.target).attr({
             "class": "song-item userEnteredSong listenedToSong",
@@ -298,5 +243,4 @@ $("#songListSection").on("click", ".song-item", (event) => {
     }
     currentlyPlaying = $(event.target)
     generateAllSongElements([artistName, songName]);
-
 })
