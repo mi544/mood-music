@@ -52,7 +52,7 @@ const lastFMGetTrackInfo = async (artist, track) => {
       format: "json"
     }
   });
-  console.log("LastFM API: ", "Raw response for track info", lastFMSearchResponse);
+
   return lastFMSearchResponse;
 };
 
@@ -79,7 +79,6 @@ const lastFMGetSimilarTracks = async lastFMSearchResponse => {
       });
 
       if (!lastFMSimilarTracks.similartracks.track.length) {
-        console.log("--------------------ERROR--Similar-Tracks-----------------");
         console.log(
           "LastFM API: ",
           "Raw Response for similar tracks: ",
@@ -90,7 +89,7 @@ const lastFMGetSimilarTracks = async lastFMSearchResponse => {
           "Empty Similar Tracks returned\nRETRYING IN 2 SECONDS!"
         );
         await timerAsync(2000);
-        console.log("LastFM API: ", "RETRYING NOW!");
+
         j++;
         if (j >= 2) {
           // timeout for smoother experience
@@ -105,7 +104,6 @@ const lastFMGetSimilarTracks = async lastFMSearchResponse => {
       }
     }
 
-    console.log("LastFM API: ", "Raw Response for similar tracks: ", lastFMSimilarTracks);
     const similarTracks = [];
     for (let i = 0; i < lastFMSimilarTracks.similartracks.track.length; i++) {
       similarTracks.push([
@@ -113,8 +111,6 @@ const lastFMGetSimilarTracks = async lastFMSearchResponse => {
         lastFMSimilarTracks.similartracks.track[i].name
       ]);
     }
-
-    console.log("LastFM API: ", "Similar Tracks Array: ", similarTracks);
 
     return similarTracks;
   } catch (error) {
@@ -162,15 +158,12 @@ const geniusGetSongURLbyName = async songName => {
     }
   });
 
-  console.log("GeniusAPI: ", "Searching for: ", songName);
   console.log(
     "GeniusAPI: ",
     geniusSearchResponse.response.hits.length,
     " results found."
   );
 
-  console.log("GeniusAPI: ", "Only returning the first result.");
-  console.log("GeniusAPI: ", "Raw response for Genius song lyrics", geniusSearchResponse);
   console.log(
     "GeniusAPI: ",
     "[0] Full title: ",
@@ -209,8 +202,6 @@ const geniusGetLyricsBySongURL = async geniusSongUrl => {
     .replace(regexATagsOpeningFull, "")
     .trim()
     .split("<br>");
-
-  console.log(songLyricsArr);
 
   return songLyricsArr;
 };
@@ -276,7 +267,6 @@ const generateLyrics = geniusLyricsArray => {
 // otherwise using values from input fields
 const generateAllSongElements = async (artistNameSongNameArr = null) => {
   const youTube = async () => {
-    console.log("-------------------------------------STARTING YOUTUBE FUNCTION");
     const now = Date.now();
     // async YouTube-Scraper request for search results from YouTube
     const youTubeId = await youTubeSearch(
@@ -292,11 +282,9 @@ const generateAllSongElements = async (artistNameSongNameArr = null) => {
         allowfullscreen: ""
       })
     );
-    console.log("YOUTUBE: TOOK", Date.now() - now, "ms");
   };
 
   const genius = async () => {
-    console.log("-------------------------------------STARTING GENIUS FUNCTION");
     const now = Date.now();
     // async Genius request for song URL
     const geniusSongURL = await geniusGetSongURLbyName(
@@ -306,11 +294,9 @@ const generateAllSongElements = async (artistNameSongNameArr = null) => {
     const geniusLyricsArray = await geniusGetLyricsBySongURL(geniusSongURL);
     // Generating Genius lyrics on the page
     generateLyrics(geniusLyricsArray);
-    console.log("GENIUS: TOOK", Date.now() - now, "ms");
   };
 
   const lastFM = async () => {
-    console.log("-------------------------------------STARTING LASTFM FUNCTION");
     const now = Date.now();
     // async lastFM request for similar songs
     const lastFMSimilarSongsArray = await lastFMGetSimilarTracks(songInfo);
@@ -319,7 +305,6 @@ const generateAllSongElements = async (artistNameSongNameArr = null) => {
       songInfo.track.artist.name,
       songInfo.track.name
     ]);
-    console.log("LASTFM: TOOK", Date.now() - now, "ms");
   };
 
   let artistUserInput = $("#artistName");
@@ -354,7 +339,7 @@ const generateAllSongElements = async (artistNameSongNameArr = null) => {
 
   // async lastFM request for song information
   // everything else is based on that response
-  console.log("-------------------------------------STARTING LASTFM");
+
   const songInfo = await lastFMGetTrackInfo(artistUser, songUser);
   if (!artistNameSongNameArr) {
     lastFM();
@@ -382,8 +367,6 @@ $("#songListSection").on("click", ".song-item", event => {
   if (currentName === artistName && currentSong === songName) {
     return false;
   }
-
-  console.log("OKAAY\n\n\n\n\n", $(currentlyPlaying).data("userEntered"));
 
   // checking if the song the user was listening to and click from was user entered
   if (isUserEntered) {

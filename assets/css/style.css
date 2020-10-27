@@ -16,7 +16,6 @@ body {
   box-shadow: 5px 5px lightgray;
 }
 
-/* START OF Song List Logic */
 .songSelection {
   cursor: pointer;
 }
@@ -49,9 +48,6 @@ body {
   cursor: pointer;
 }
 
-/* END OF Song List Logic */
-
-/* Each line in the lyrics */
 .lyrics-line {
   display: block;
   font-variant: small-caps;
@@ -74,7 +70,7 @@ body {
 }
 #exploreButton {
   max-width: 70%;
-  /* enabling text wrapping for the button */
+
   height: auto;
   white-space: normal;
 }
@@ -83,7 +79,6 @@ body {
   width: 100px;
 }
 
-/* /////////////////////// */
 #moodMusicTitle {
   margin-top: 15rem;
 }
@@ -127,29 +122,23 @@ body {
   box-shadow: 5px 10px lightgray;
 }
 
-/* START OF the Scroll bar Customization Block */
 #songListSection::-webkit-scrollbar,
 #lyricsSection::-webkit-scrollbar {
   width: 12px;
-  /* width of the entire scrollbar */
 }
 #songListSection::-webkit-scrollbar-track,
 #lyricsSection::-webkit-scrollbar-track {
   background: lightgray;
-  /* color of the tracking area */
+
   border-radius: 20px;
 }
 #songListSection::-webkit-scrollbar-thumb,
 #lyricsSection::-webkit-scrollbar-thumb {
   background-color: #3298dc;
-  /* color of the scroll thumb */
+
   border-radius: 20px;
-  /* roundness of the scroll thumb */
 }
 
-/* END OF the Scroll bar Customization Block */
-
-/* Working on mobile responsiveness */
 @media (max-width: 769px) {
   #moodMusicTitle {
     margin-top: 0;
@@ -195,6 +184,5 @@ body {
   #songListSection::-webkit-scrollbar,
   #lyricsSection::-webkit-scrollbar {
     width: 6px;
-    /* width of the entire scrollbar */
   }
 }
