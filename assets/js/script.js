@@ -90,7 +90,7 @@ const lastFMGetSimilarTracks = async (lastFMSearchResponse) => {
 const youTubeSearch = async (searchQuery) => {
     const youTubeSearchResult = await $.ajax({
         type: 'GET',
-        url: 'https://no-cors.tk/https://youtube-parse.tk//api/search',
+        url: 'https://youtube-parse.tk/api/search',
         dataType: "json",
         data: {
             q: searchQuery,
