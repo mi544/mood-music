@@ -114,7 +114,7 @@ const youTubeSearch = async searchQuery => {
     dataType: "json",
     data: {
       q: searchQuery,
-      page: "1"
+      pageToken: "1"
     }
   });
 
