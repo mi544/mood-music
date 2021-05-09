@@ -2,21 +2,13 @@
   "printWidth": 90,
   "tabWidth": 2,
   "useTabs": false,
-  "semi": true,
-  "singleQuote": false,
-  "quoteProps": "as-needed",
-  "jsxSingleQuote": false,
-  "trailingComma": "none",
+  "semi": false,
+  "singleQuote": true,
+  "trailingComma": "es5",
   "bracketSpacing": true,
   "jsxBracketSameLine": false,
-  "arrowParens": "avoid",
-  "endOfLine": "auto",
-  "overrides": [
-    {
-      "files": "*.js",
-      "options": {
-        "parser": "babel"
-      }
-    }
-  ]
+  "arrowParens": "always",
+  "proseWrap": "never",
+  "htmlWhitespaceSensitivity": "strict",
+  "endOfLine": "lf"
 }
