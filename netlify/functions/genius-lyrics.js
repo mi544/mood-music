@@ -43,7 +43,7 @@ exports.handler = async (event) => {
       lyrics: null,
     }
 
-    // about 3 in 10 times does not display lyrics, but request succeeds
+    // does not display lyrics (~3 in 10 times), but request succeeds
     // keep requesting until lyrics are found
     // takes ~1-3 additional requests after an unsuccessful one
     // to get the lyrics
