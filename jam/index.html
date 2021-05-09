@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <link rel="icon" type="image/png" href="/assets/img/favicon256.png" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/bulma@0.9.2/css/bulma.min.css"
+    />
+    <link rel="stylesheet" href="/assets/css/style.css" />
+    <title>Mood Music -> Listening</title>
+  </head>
+  <body>
+    <!-- Navbar  -->
+    <div class="container is-fluid">
+      <nav class="navbar is-link" role="navigation" aria-label="main navigation">
+        <div class="navbar-brand">
+          <a class="navbar-item" href="/">
+            <img
+              src="/assets/img/logo-music.svg"
+              alt="Mood Music Logo"
+              id="mood-music-logo"
+            />
+          </a>
+        </div>
+      </nav>
+      <!-- Main Content  -->
+      <div class="tile is-ancestor mt-5">
+        <!-- Song Container  -->
+        <div class="tile is-parent is-fullhd" id="song-div">
+          <article class="tile is-child">
+            <div class="is-divider" data-content="OR">
+              <p class="title">Songs</p>
+              <div class="field has-addons">
+                <form class="control" id="search-form">
+                  <input
+                    class="input mb-2"
+                    type="text"
+                    placeholder="artist name"
+                    id="artist-name"
+                  />
+                  <input
+                    class="input mb-2"
+                    type="text"
+                    placeholder="song name"
+                    id="song-name"
+                  />
+                  <button type="submit" class="button is-info" id="search-button">
+                    Search
+                  </button>
+                </form>
+              </div>
+            </div>
+            <div class="content is-hoverable" id="song-selection">
+              <ul id="song-list-section"></ul>
+            </div>
+          </article>
+        </div>
+        <!-- YouTube Container -->
+        <div class="tile is-parent is-6" id="youtube-div">
+          <article class="tile is-child notification is-info" id="youtube-parent">
+            <figure class="image is-4by3" id="iframe-container">
+              <!-- <div class="dot-windmill" id="youTubeLoader"></div> -->
+            </figure>
+          </article>
+        </div>
+        <!-- Lyrics Container  -->
+        <div class="tile is-parent" id="lyrics-div">
+          <article class="tile is-child">
+            <p class="title">Lyrics</p>
+            <div class="content" id="lyrics-section"></div>
+          </article>
+        </div>
+      </div>
+    </div>
+    <script type="module" src="/assets/js/jam.js" defer></script>
+  </body>
+</html>
