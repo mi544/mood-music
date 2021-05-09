@@ -2,8 +2,6 @@
 
 body {
   font: 1.2rem 'Baloo 2', sans-serif;
-  scrollbar-width: thin;
-  scrollbar-color: blue orange;
 }
 
 .tippy-content {
@@ -192,11 +190,5 @@ body {
 
   #youtube-parent {
     padding: 0.2rem;
-  }
-
-  #song-list-section::-webkit-scrollbar,
-  #lyrics-section::-webkit-scrollbar {
-    width: 6px;
-    /* width of the entire scrollbar */
   }
 }
