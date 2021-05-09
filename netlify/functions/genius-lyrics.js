@@ -59,7 +59,12 @@ exports.handler = async (event) => {
       // request song HTML code
       const { data: songHTML } = await axios.get(songData.url)
       // get everything from inside of <div class="lyrics">
-      lyricsSectionHTML = songHTML.match(/<div class="lyrics">([\s\S]*?)<\/div>/i)?.[1]
+      lyricsSectionHTML = songHTML.match(/<div class="lyrics">([\s\S]*?)<\/div>/i)
+      if (lyricsSectionHTML && lyricsSectionHTML[1]) {
+        lyricsSectionHTML = lyricsSectionHTML[1]
+      } else {
+        lyricsSectionHTML = null
+      }
       // break out of the loop if lyrics are found
       if (lyricsSectionHTML) {
         break
