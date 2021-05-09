@@ -1,7 +1,7 @@
-@import url("https://fonts.googleapis.com/css2?family=Baloo+2&display=swap");
+@import url('https://fonts.googleapis.com/css2?family=Baloo+2&display=swap');
 
 body {
-  font: 1.2rem "Baloo 2", sans-serif;
+  font: 1.2rem 'Baloo 2', sans-serif;
   scrollbar-width: thin;
   scrollbar-color: blue orange;
 }
@@ -19,27 +19,27 @@ body {
 }
 
 /* START OF Song List Logic */
-.songSelection {
+.song-selection {
   cursor: pointer;
 }
 
-#currentlySelected {
+#currently-selected {
   background-color: #00d1b2;
 }
 
-#currentlySelected:hover {
+#currently-selected:hover {
   background-color: #00d1b2;
 }
 
-.userEnteredSong {
+.user-entered-song {
   text-decoration: underline black;
 }
 
-.userEnteredSong:hover {
+.user-entered-song:hover {
   color: black;
 }
 
-.listenedToSong {
+.listened-to-song {
   background-color: lightgray;
 }
 
@@ -87,139 +87,115 @@ body {
   padding-right: 0;
 }
 
-#exploreButton {
+#explore-button {
   max-width: 70%;
   /* enabling text wrapping for the button */
   height: auto;
   white-space: normal;
 }
 
-#moodMusicLogo {
+#mood-music-logo {
   height: 100px;
   width: 100px;
 }
 
 /* /////////////////////// */
-#moodMusicTitle {
+#mood-music-title {
   margin-top: 15rem;
 }
 
-#songListSection {
+#song-list-section {
   cursor: pointer;
   height: 55vh;
-  overflow-y: overlay;
+  overflow-y: auto;
   margin-left: 0;
   padding-left: 0;
   padding-right: 0.1rem;
 }
 
-#lyricsSection {
+#lyrics-section {
   height: 72.4vh;
   overflow-y: auto;
   overflow-x: hidden;
 }
 
-#youTubeDiv {
+#youtube-div {
   margin-left: 0;
   margin-right: 0;
 }
 
-#lyricsDiv {
+#lyrics-div {
   margin-left: 0;
   margin-right: 1%;
 }
 
-#welcomeHero {
+#welcome-hero {
   padding: 0.2rem;
 }
 
-#songDiv {
+#song-div {
   margin-left: 1%;
 }
 
-#artistName,
-#songName,
-#searchButton {
+#artist-name,
+#song-name,
+#search-button {
   width: 100%;
   display: block;
   margin-bottom: 0 !important;
 }
 
-#youtubeParent {
+#youtube-parent {
   padding: 0.2rem;
-  height: fit-content;
+  height: max-content;
   box-shadow: 5px 10px lightgray;
 }
 
-/* START OF the Scroll bar Customization Block */
-#songListSection::-webkit-scrollbar,
-#lyricsSection::-webkit-scrollbar {
-  width: 12px;
-  /* width of the entire scrollbar */
-}
-
-#songListSection::-webkit-scrollbar-track,
-#lyricsSection::-webkit-scrollbar-track {
-  background: lightgray;
-  /* color of the tracking area */
-  border-radius: 20px;
-}
-
-#songListSection::-webkit-scrollbar-thumb,
-#lyricsSection::-webkit-scrollbar-thumb {
-  background-color: #3298dc;
-  /* color of the scroll thumb */
-  border-radius: 20px;
-  /* roundness of the scroll thumb */
-}
-
-/* END OF the Scroll bar Customization Block */
-
 /* Working on mobile responsiveness */
 @media (max-width: 769px) {
-  #moodMusicTitle {
+  #mood-music-title {
     margin-top: 0;
   }
 
-  #songListSection {
+  #song-list-section {
     margin-right: 15%;
     padding-left: 0;
     padding-right: 0;
   }
 
-  #youTubeDiv {
+  #youtube-div {
     margin-left: 2%;
     margin-right: 3%;
   }
 
-  #lyricsDiv {
+  #lyrics-div {
     margin-left: 3%;
     margin-right: 20%;
   }
 
-  #welcomeHero {
+  #welcome-hero {
     padding: 1rem;
   }
 
-  #songDiv {
+  #song-div {
     width: 90%;
     margin-left: 2%;
   }
 
-  #artistName,
-  #songName,
-  #searchButton {
+  #artist-name,
+  #song-name,
+  #search-button {
     width: 85%;
     display: block;
     margin-bottom: 0 !important;
   }
 
-  #youtubeParent {
+  #youtube-parent {
     padding: 0.2rem;
   }
 
-  #songListSection::-webkit-scrollbar,
-  #lyricsSection::-webkit-scrollbar {
+  #song-list-section::-webkit-scrollbar,
+  #lyrics-section::-webkit-scrollbar {
     width: 6px;
     /* width of the entire scrollbar */
   }
