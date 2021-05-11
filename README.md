@@ -19,13 +19,13 @@ _Choose your song and enjoy!_
 
 # Index
 
-1. [Features](#Features)
-2. [Why serverless?](#Why-serverless?)
-3. [Resources](#Resources)
-4. [Installation](#Installation)
-5. [Deployment](#Deployment)
-6. [Authors](#Authors)
-7. [Screenshots](#Screenshots)
+1. [Features](#features)
+2. [Why serverless?](#why-serverless)
+3. [Resources](#resources)
+4. [Installation](#installation)
+5. [Deployment](#deployment)
+6. [Authors](#authors)
+7. [Screenshots](#screenshots)
 
 # Features
 
