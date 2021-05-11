@@ -19,8 +19,6 @@ const jamState = {
   trackIndex: -2,
 }
 
-setInterval(() => console.log(jamState), 2500)
-
 const fullReset = () => {
   // track list reset
   $('#song-list-section').empty()
