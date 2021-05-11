@@ -1,48 +1,43 @@
 <!DOCTYPE html>
-<html lang="en-us">
+<html lang="en">
   <head>
     <meta charset="UTF-8" />
-
-    <meta
-      name="viewport"
-      content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0"
-    />
-    <link rel="icon" type="image/png" href="assets/img/favicon256.png" />
+    <link rel="icon" type="image/png" href="/assets/img/favicon256.png" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <link
-      href="https://cdn.jsdelivr.net/npm/bulma@0.9.0/css/bulma.min.css"
       rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/bulma@0.9.2/css/bulma.min.css"
     />
-    <link href="assets/css/style.css" rel="stylesheet" />
+    <link rel="stylesheet" href="/assets/css/style.css" />
     <title>Mood Music</title>
   </head>
-
   <body>
     <div class="container is-fluid">
       <nav class="navbar is-link" role="navigation" aria-label="main navigation">
         <div class="navbar-brand">
-          <a class="navbar-item" href="index.html">
+          <a class="navbar-item" href="/">
             <img
-              src="assets/img/logo-music.svg"
+              src="/assets/img/logo-music.svg"
               alt="Mood Music Logo"
-              id="moodMusicLogo"
+              id="mood-music-logo"
             />
           </a>
         </div>
       </nav>
 
       <section class="hero is-primary is-medium my-class border">
-        <div class="hero-body" id="welcomeHero">
+        <div class="hero-body" id="welcome-hero">
           <div class="container">
             <div class="columns">
               <div class="column">
                 <img
-                  src="assets/img/tortoise.png"
+                  src="/assets/img/tortoise.png"
                   alt="tortoise talking"
                   id="tortoiseImage"
                 />
               </div>
               <div class="column">
-                <h1 class="title size is-size-2" id="moodMusicTitle">Mood Music</h1>
+                <h1 class="title size is-size-2" id="mood-music-title">Mood Music</h1>
               </div>
             </div>
           </div>
@@ -101,13 +96,11 @@
         <div class="container">
           <div class="columns">
             <div class="column is-primary has-text-centered">
-              <button
-                onclick="window.location.href='main.html'"
-                class="button is-large is-link"
-                id="exploreButton"
-              >
-                Start Exploring New Songs
-              </button>
+              <a href="/jam/">
+                <button class="button is-large is-link" id="explore-button">
+                  Start Exploring New Songs
+                </button>
+              </a>
             </div>
           </div>
         </div>
