@@ -14,10 +14,10 @@ class BaseApiClient {
 
 const serverlessClient = new BaseApiClient(import.meta.env.VITE_SERVERLESS_URL)
 
-const getSongDetails = async (artist, track) => {
+const getTrackDetails = async (artist, track) => {
   try {
     const songDetails = await serverlessClient.get(
-      `last-fm-song-info?artist=${artist}&track=${track}`
+      `last-fm-track-info?artist=${artist}&track=${track}`
     )
     return songDetails.track
   } catch (err) {
@@ -28,7 +28,7 @@ const getSongDetails = async (artist, track) => {
 const getSimilarTracks = async (artist, track) => {
   try {
     const similarTracksData = await serverlessClient.get(
-      `last-fm-similar-songs?artist=${artist}&track=${track}`
+      `last-fm-similar-tracks?artist=${artist}&track=${track}`
     )
     return similarTracksData.similartracks.track
   } catch (err) {
@@ -58,4 +58,4 @@ const getLyrics = async (artist, track) => {
   }
 }
 
-export { getSimilarTracks, getSongDetails, getVideo, getLyrics }
+export { getSimilarTracks, getTrackDetails, getVideo, getLyrics }

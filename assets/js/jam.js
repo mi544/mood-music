@@ -6,7 +6,7 @@ import YTPlayer from 'yt-player'
 import { getBoxPlacementSide, initTippyBoxWithEl, showTippyBox } from './utils.js'
 import {
   getSimilarTracks,
-  getSongDetails,
+  getTrackDetails,
   getVideo,
   getLyrics,
 } from './serviceClients.js'
@@ -125,8 +125,8 @@ const searchForTracks = async (artist, track) => {
   $('#song-list-section').append(userTrackEl)
 
   // confirm if the song exists
-  const songDetails = await getSongDetails(artist, track)
-  if (!songDetails) {
+  const trackDetails = await getTrackDetails(artist, track)
+  if (!trackDetails) {
     showTippyBox(tippyBoxes.songNotFound, 250, 8250)
     // stop if it doesn't exist
     return false
