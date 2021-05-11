@@ -1,0 +1,29 @@
+{
+  "name": "mood-music",
+  "version": "1.0.0",
+  "license": "MIT",
+  "author": "Maksim Verkhoturov, Jared Schau, Mark McKenna, Preston Patterson",
+  "homepage": "https://moodmusic.today/",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/mi544/mood-music.git"
+  },
+  "bugs": {
+    "url": "https://github.com/mi544/mood-music/issues"
+  },
+  "scripts": {
+    "dev": "vite",
+    "build": "vite build",
+    "serve": "vite preview"
+  },
+  "devDependencies": {
+    "vite": "^2.2.3"
+  },
+  "dependencies": {
+    "axios": "^0.21.1",
+    "events": "^3.3.0",
+    "jquery": "^3.6.0",
+    "tippy.js": "^6.3.1",
+    "yt-player": "^3.5.0"
+  }
+}
