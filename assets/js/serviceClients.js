@@ -25,12 +25,12 @@ const getSongDetails = async (artist, track) => {
   }
 }
 
-const getSimilarSongs = async (artist, track) => {
+const getSimilarTracks = async (artist, track) => {
   try {
-    const similarSongsData = await serverlessClient.get(
+    const similarTracksData = await serverlessClient.get(
       `last-fm-similar-songs?artist=${artist}&track=${track}`
     )
-    return similarSongsData.similartracks.track
+    return similarTracksData.similartracks.track
   } catch (err) {
     return null
   }
@@ -58,4 +58,4 @@ const getLyrics = async (artist, track) => {
   }
 }
 
-export { getSimilarSongs, getSongDetails, getVideo, getLyrics }
+export { getSimilarTracks, getSongDetails, getVideo, getLyrics }

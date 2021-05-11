@@ -1,96 +1,165 @@
 import $ from 'jquery'
+// `yt-player` uses EventEmitter class to extend from
+// and therefore requires npm pckg `events` to be installed
+// to be used on the front-end too
+import YTPlayer from 'yt-player'
 import { getBoxPlacementSide, initTippyBoxWithEl, showTippyBox } from './utils.js'
-import { getSimilarSongs, getSongDetails, getVideo, getLyrics } from './serviceClients.js'
+import {
+  getSimilarTracks,
+  getSongDetails,
+  getVideo,
+  getLyrics,
+} from './serviceClients.js'
 
 const tippyBoxes = {}
+const jamState = {
+  player: null,
+  userTrack: null,
+  tracks: [],
+  trackIndex: -2,
+}
 
-const searchForSong = async (artist, track, resetAndSearch = true) => {
-  if (resetAndSearch) $('#song-list-section').empty()
+setInterval(() => console.log(jamState), 2500)
+
+const fullReset = () => {
+  // track list reset
+  $('#song-list-section').empty()
+  jamState.tracks.length = 0
+  jamState.trackIndex = -2
+  // player reset
+  jamState.player.load('')
+  // lyrics reset
   $('#lyrics-section').empty()
-  $('#iframe-container').empty()
+}
 
-  let verifiedArtist = artist
-  let verifiedTrack = track
+const generateLyrics = async (artist, track) => {
+  // reset lyrics
+  $('#lyrics-section').empty()
 
-  if (resetAndSearch) {
-    const userEnteredSongEl = $('<li>')
-      .attr({
-        class: 'song-item user-entered-song listened-to-song',
-        id: 'currently-selected',
-        'data-artist': artist,
-        'data-track': track,
-        'data-user-entered': true,
-      })
-      .text(`${track} by ${artist}`)
-      .css({ borderBottom: '1px solid black' })
+  // request lyrics
+  const trackLyrics = await getLyrics(artist, track)
 
-    $('#song-list-section').append(userEnteredSongEl)
-
-    const songDetails = await getSongDetails(artist, track)
-    if (!songDetails) {
-      showTippyBox(tippyBoxes.songNotFound, 250, 8250)
-      return false
-    }
-
-    userEnteredSongEl.css({ borderBottom: 'none' })
-
-    verifiedArtist = songDetails.artist.name
-    verifiedTrack = songDetails.name
-
-    getSimilarSongs(verifiedArtist, verifiedTrack).then((similarSongs) => {
-      if (!similarSongs) {
-        showTippyBox(tippyBoxes.similarNotFound, 250, 8250)
-        return false
-      }
-      const similarSongsFormatted = similarSongs.map((song) => ({
-        artist: song.artist.name,
-        track: song.name,
-      }))
-
-      similarSongsFormatted.forEach((song) => {
-        $('#song-list-section').append(
-          $('<li>')
-            .attr({
-              class: 'song-item',
-              'data-artist': song.artist,
-              'data-track': song.track,
-            })
-            .text(`${song.track} by ${song.artist}`)
-        )
-      })
-
-      $('#song-list-section')
-        .children(':last-child')
-        .css({ borderBottom: '1px solid black' })
-    })
+  if (!trackLyrics) {
+    showTippyBox(tippyBoxes.lyricsNotFound, 250, 8250)
+    // stop if none found
+    return false
   }
 
-  getLyrics(verifiedArtist, verifiedTrack).then((songLyrics) => {
-    if (!songLyrics) {
-      showTippyBox(tippyBoxes.lyricsNotFound, 250, 8250)
-      return false
-    }
-
-    songLyrics.lyrics.forEach((line) => {
-      $('#lyrics-section').append($('<span>').attr('class', 'lyrics-line').html(line))
-    })
+  // add the lyrics to the DOM
+  trackLyrics.lyrics.forEach((line) => {
+    $('#lyrics-section').append($('<span>').attr('class', 'lyrics-line').html(line))
   })
+}
 
-  getVideo(verifiedArtist, verifiedTrack).then((songVideo) => {
-    if (!songVideo) {
-      showTippyBox(tippyBoxes.videoNotFound, 250, 8250)
-      return false
-    }
+const generateSimilarTracks = async (artist, track, userTrackEl = null) => {
+  // request similar tracks
+  const similarTracks = await getSimilarTracks(artist, track)
 
-    $('#iframe-container').append(
-      $('<iframe>').attr({
-        src: `https://www.youtube-nocookie.com/embed/${songVideo.id}?modestbranding=1&showinfo=0&rel=0&iv_load_policy=3&fs=0&color=white&autohide=0`,
-        frameborder: '0',
-        allow: 'autoplay; fullscreen; encrypted-media',
-        allowfullscreen: '',
-      })
+  if (!similarTracks) {
+    showTippyBox(tippyBoxes.similarNotFound, 250, 8250)
+    // stop if none found
+    return false
+  }
+
+  userTrackEl.css({ borderBottom: 'none' })
+
+  // add the tracks to the state
+  jamState.tracks = similarTracks.map((track) => ({
+    artist: track.artist.name,
+    track: track.name,
+  }))
+
+  // add the tracks to the DOM
+  jamState.tracks.forEach((track, index) => {
+    $('#song-list-section').append(
+      $('<li>')
+        .attr({
+          class: 'song-item',
+          'data-artist': track.artist,
+          'data-track': track.track,
+          'data-index': index,
+        })
+        .text(`${track.track} by ${track.artist}`)
     )
   })
+
+  $('#song-list-section').children(':last-child').css({ borderBottom: '1px solid black' })
+}
+
+const generateVideo = async (artist, track) => {
+  // reset player
+  jamState.player.load('')
+
+  // request track video
+  const trackVideo = await getVideo(artist, track)
+
+  if (!trackVideo) {
+    // stop if none found
+    showTippyBox(tippyBoxes.videoNotFound, 250, 8250)
+    return false
+  }
+
+  // load the video
+  jamState.player.load(trackVideo.id)
+  jamState.player.play()
+}
+
+const searchForTracks = async (artist, track) => {
+  fullReset()
+
+  // add user track to the state
+  jamState.userTrack = { artist, track }
+  jamState.trackIndex = -1
+
+  // display it in the DOM
+  const userTrackEl = $('<li>')
+    .attr({
+      class: 'song-item user-entered-song listened-to-song',
+      id: 'currently-selected',
+      'data-artist': artist,
+      'data-track': track,
+      'data-user-entered': true,
+      'data-index': jamState.trackIndex,
+    })
+    .text(`${track} by ${artist}`)
+    .css({ borderBottom: '1px solid black' })
+
+  $('#song-list-section').append(userTrackEl)
+
+  // confirm if the song exists
+  const songDetails = await getSongDetails(artist, track)
+  if (!songDetails) {
+    showTippyBox(tippyBoxes.songNotFound, 250, 8250)
+    // stop if it doesn't exist
+    return false
+  }
+
+  generateSimilarTracks(artist, track, userTrackEl)
+  generateVideo(artist, track)
+  generateLyrics(artist, track)
+}
+
+const onVideoFinish = () => {
+  if (jamState.trackIndex === -2 || !jamState.tracks.length) {
+    return false
+  }
+
+  if (jamState.trackIndex >= jamState.tracks.length - 1) {
+    // end of similar tracks
+    return false
+  }
+
+  jamState.trackIndex += 1
+  const nextTrack = jamState.tracks[jamState.trackIndex]
+
+  const previousTrackEl = $('#currently-selected')
+  const nextTrackEl = $(`[data-index=${jamState.trackIndex}]`)
+  previousTrackEl.attr('id', '')
+  nextTrackEl.attr('id', 'currently-selected')
+  nextTrackEl.attr('class', 'song-item listened-to-song')
+
+  generateVideo(nextTrack.artist, nextTrack.track)
+  generateLyrics(nextTrack.artist, nextTrack.track)
 }
 
 const onMount = () => {
@@ -98,13 +167,13 @@ const onMount = () => {
 
   tippyBoxes.songNotFound = initTippyBoxWithEl(
     '#search-form',
-    "Sorry, it looks like you misspelled the song or artist name.. Please, please try that again! (We'll try our best to find it!)",
+    "Sorry, it looks like the song or artist name were misspelled.. Please try that again! (We'll do our best to find it)",
     placement
   )
 
   tippyBoxes.similarNotFound = initTippyBoxWithEl(
     '#song-list-section',
-    "Similar songs not found. We really tried. The song is probably not popular enough, so we can't make an educated recommendation. Maybe check the spelling again?",
+    'Similar songs not found. The song is either not popular enough or is misspelled',
     placement
   )
 
@@ -135,13 +204,13 @@ const onMount = () => {
     const songVal = $('#song-name').val().trim()
     if (!artistVal) {
       showTippyBox(tippyBoxes.noArtist, 250, 2250)
-      return
+      return false
     } else if (!songVal) {
       showTippyBox(tippyBoxes.noSongName, 250, 2250)
-      return
+      return false
     }
 
-    searchForSong(artistVal, songVal)
+    searchForTracks(artistVal, songVal)
   })
 
   $('#song-list-section').on('click', '.song-item', (e) => {
@@ -153,13 +222,32 @@ const onMount = () => {
 
     $(e.target).attr({ id: 'currently-selected' })
     if (isUserEntered) {
+      jamState.trackIndex = -1
       $(e.target).attr({ class: 'song-item user-entered-song listened-to-song' })
     } else {
+      jamState.trackIndex = $(e.target).data('index')
       $(e.target).attr({ class: 'song-item listened-to-song' })
     }
 
-    searchForSong(track, artist, false)
+    generateVideo(artist, track)
+    generateLyrics(artist, track)
   })
+
+  jamState.player = new YTPlayer('#youtube-player', {
+    autoplay: true,
+    captions: false,
+    controls: true,
+    keyboard: true,
+    fullscreen: false,
+    annotations: false,
+    modestBranding: true,
+    related: true,
+    timeupdateFrequency: 1000,
+    playsInline: true,
+    host: 'https://www.youtube-nocookie.com',
+  })
+
+  jamState.player.on('ended', onVideoFinish)
 }
 
 onMount()
