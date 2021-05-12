@@ -1,4 +1,5 @@
-const axios = require('axios')
+import axios from 'axios'
+import { parseEntities } from 'parse-entities'
 const { GENIUS_API_KEY } = process.env
 
 exports.handler = async (event) => {
@@ -43,12 +44,14 @@ exports.handler = async (event) => {
       lyrics: null,
     }
 
+    console.log(songData)
     // does not display lyrics (~3 in 10 times), but request succeeds
     // keep requesting until lyrics are found
     // takes ~1-3 additional requests after an unsuccessful one
     // to get the lyrics
     let counter = 0
     let lyricsSectionHTML = ''
+    const regexLyrics = /<div\s*?id="lyrics".*?>([\s\S]*?)<div\s*?id="about".*?>/i
 
     while (true) {
       counter += 1
@@ -58,8 +61,8 @@ exports.handler = async (event) => {
 
       // request song HTML code
       const { data: songHTML } = await axios.get(songData.url)
-      // get everything from inside of <div class="lyrics">
-      lyricsSectionHTML = songHTML.match(/<div class="lyrics">([\s\S]*?)<\/div>/i)
+      // get everything between <div id="lyrics"> and <div id="about">
+      lyricsSectionHTML = songHTML.match(regexLyrics)
       if (lyricsSectionHTML && lyricsSectionHTML[1]) {
         lyricsSectionHTML = lyricsSectionHTML[1]
       } else {
@@ -73,13 +76,13 @@ exports.handler = async (event) => {
       await new Promise((resolve) => setTimeout(resolve, 500))
     }
 
-    const regexHTMLCleanup = /<\/?a.*?>|<\/?p>|<!--\/?sse-->/gi
+    const regexHTMLCleanup = /<\/?(a|div|span).*?>|/gi
 
-    songData.lyrics = lyricsSectionHTML
+    songData.lyrics = parseEntities(lyricsSectionHTML)
       .replace(/\n/g, '') // converts lyrics into 1 line
       .replace(regexHTMLCleanup, '') // removes HTML tags
       .trim() // gets rid of any leftover whitespace
-      .split('<br>') // every line of lyrics is followed by a <br>
+      .split('<br/>') // every line of lyrics is followed by a <br/>
       .filter((x) => x) // removes any empty elements
 
     return {
@@ -87,6 +90,7 @@ exports.handler = async (event) => {
       body: JSON.stringify(songData),
     }
   } catch (err) {
+    console.error(err)
     return {
       statusCode: 500,
     }
