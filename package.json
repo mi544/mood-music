@@ -13,10 +13,13 @@
   },
   "scripts": {
     "dev": "vite",
-    "build": "vite build",
-    "serve": "vite preview"
+    "serve": "vite preview",
+    "build": "yarn build:client && yarn build:server",
+    "build:client": "vite build",
+    "build:server": "netlify-lambda build netlify/functions"
   },
   "devDependencies": {
+    "netlify-lambda": "^2.0.6",
     "vite": "^2.2.3"
   },
   "dependencies": {
